@@ -19,13 +19,13 @@
 <<<<<<< HEAD
         <activity android:name=".StartActivity" />
 
+        <activity android:name=".ConfigActivity" />
+        <activity android:name=".StopActivity" />
+        <activity android:name=".PrintActivity" />
         <service
             android:name=".GpsService"
             android:enabled="true"
             android:exported="true"></service>
-=======
-        <activity android:name=".StartActivity"></activity>
->>>>>>> master
     </application>
 
 </manifest>

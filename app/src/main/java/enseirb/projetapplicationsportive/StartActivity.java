@@ -1,6 +1,5 @@
 package enseirb.projetapplicationsportive;
 
-<<<<<<< HEAD
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -12,12 +11,12 @@ import android.util.Log;
 import android.view.View;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
-
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
 public class StartActivity extends AppCompatActivity {
     private static final int PERMISSION_REQUEST_CODE = 100;
-=======
-public class StartActivity extends AppCompatActivity {
->>>>>>> master
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +24,6 @@ public class StartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_start);
     }
 
-<<<<<<< HEAD
     public void startRunning(View view){
         if (!(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED
@@ -47,9 +45,9 @@ public class StartActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
             case PERMISSION_REQUEST_CODE:
-                if(grantResults.length > 0){
+                if (grantResults.length > 0) {
                     boolean locationAccepted = (grantResults[0] == PackageManager.PERMISSION_GRANTED);
-                    if(locationAccepted){
+                    if (locationAccepted) {
                     } else {
                         ActivityCompat.requestPermissions(this, new String[]{ACCESS_FINE_LOCATION}, PERMISSION_REQUEST_CODE);
                     }
@@ -58,7 +56,15 @@ public class StartActivity extends AppCompatActivity {
             default:
                 return;
         }
-=======
->>>>>>> master
+    }
+
+    public void goToStop(View view){
+        Intent intent = new Intent(this, StopActivity.class);
+        startActivity(intent);
+    }
+
+    public void goToLogin(View view){
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
     }
 }
