@@ -18,7 +18,8 @@
         </activity>
         <activity android:name=".ConfigActivity" />
         <activity android:name=".StopActivity" />
-        <activity android:name=".PrintActivity"></activity>
+        <activity android:name=".PrintActivity" />
+        <activity android:name=".StartActivity"></activity>
     </application>
 
 </manifest>

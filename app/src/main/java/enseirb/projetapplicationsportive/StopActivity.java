@@ -13,7 +13,7 @@ public class StopActivity extends AppCompatActivity {
         setContentView(R.layout.activity_stop);
     }
 
-    public void goToStart(View view){
+    public void goToPrint(View view){
         Intent intent = new Intent(this, PrintActivity.class);
         startActivity(intent);
     }

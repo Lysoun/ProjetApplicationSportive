@@ -5,16 +5,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-public class PrintActivity extends AppCompatActivity {
+public class StartActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_print);
+        setContentView(R.layout.activity_start);
     }
 
-    public void goToStart(View view){
-        Intent intent = new Intent(this, StartActivity.class);
+    public void goToStop(View view){
+        Intent intent = new Intent(this, StopActivity.class);
         startActivity(intent);
     }
 
