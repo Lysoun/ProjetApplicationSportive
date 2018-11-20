@@ -16,12 +16,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+<<<<<<< HEAD
         <activity android:name=".StartActivity" />
 
         <service
             android:name=".GpsService"
             android:enabled="true"
             android:exported="true"></service>
+=======
+        <activity android:name=".StartActivity"></activity>
+>>>>>>> master
     </application>
 
 </manifest>

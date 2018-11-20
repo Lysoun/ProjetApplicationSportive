@@ -1,5 +1,6 @@
 package enseirb.projetapplicationsportive;
 
+<<<<<<< HEAD
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -14,6 +15,9 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
 public class StartActivity extends AppCompatActivity {
     private static final int PERMISSION_REQUEST_CODE = 100;
+=======
+public class StartActivity extends AppCompatActivity {
+>>>>>>> master
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +25,7 @@ public class StartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_start);
     }
 
+<<<<<<< HEAD
     public void startRunning(View view){
         if (!(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED
@@ -53,5 +58,7 @@ public class StartActivity extends AppCompatActivity {
             default:
                 return;
         }
+=======
+>>>>>>> master
     }
 }
