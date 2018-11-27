@@ -28,17 +28,18 @@ public class StartActivity extends AppCompatActivity {
         if (!(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED
                 && ContextCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)) {
-            Log.w("GpsThread - main", "getCoordinates() --> authorisation nope");
+            Log.w("GpsThread - main", "getCoordinates() --> authorisation denied");
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION},
                     PERMISSION_REQUEST_CODE);
+        } else {
+
+            // start service
+            startService(new Intent(StartActivity.this, GpsService.class));
+
+            // go to StopActivity
+            goToStop();
         }
-
-        // start service
-        startService(new Intent(StartActivity.this, GpsService.class));
-
-        // go to StopActivity
-//        startActivity(new Intent(this, StopActivity.class));
     }
 
     @Override
@@ -58,7 +59,7 @@ public class StartActivity extends AppCompatActivity {
         }
     }
 
-    public void goToStop(View view){
+    private void goToStop(){
         Intent intent = new Intent(this, StopActivity.class);
         startActivity(intent);
     }

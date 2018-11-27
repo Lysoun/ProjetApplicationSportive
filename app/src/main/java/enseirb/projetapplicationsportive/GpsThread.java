@@ -13,7 +13,7 @@ import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
-public class GpsThread implements Runnable {
+public class GpsThread extends Thread implements Runnable {
     private Context context;
     private LocationManager locationManager;
     private LocationListener locationListener;
@@ -44,9 +44,9 @@ public class GpsThread implements Runnable {
                     if (flag
                             && ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION)
                             == PackageManager.PERMISSION_GRANTED
-
                             && ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)
                             == PackageManager.PERMISSION_GRANTED) {
+
                         try {
                             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
                             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);

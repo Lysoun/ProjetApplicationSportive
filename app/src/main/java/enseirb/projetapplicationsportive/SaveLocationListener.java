@@ -3,6 +3,7 @@ package enseirb.projetapplicationsportive;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
+import android.util.Log;
 
 import java.util.logging.Logger;
 
@@ -25,8 +26,8 @@ public class SaveLocationListener implements LocationListener {
     }
 
     private void saveNewLocation(Location location){
-        // records a new location in the database
-        Logger.getAnonymousLogger().info("Registering a new location: " + location.getLongitude() + " "
+        // TODO : records a new location in the database
+        Log.w("GpsTread", "New location " + location.getLongitude() + " "
                 + location.getLatitude());
     }
 }
