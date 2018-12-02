@@ -22,7 +22,7 @@ public class DeleteUserActivity extends AppCompatActivity {
         // TODO: Print list of user logins
         // TODO: Check if user exists
 
-        Toast.makeText(this, "Utilisateur supprimé " + login, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Utilisateur supprimé : " + login, Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);

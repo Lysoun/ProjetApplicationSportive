@@ -37,4 +37,10 @@
         android:onClick="addUser"
         android:text="@string/add_btn_create" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="goToLogin"
+        android:text="@string/add_btn_return" />
+
 </LinearLayout>
