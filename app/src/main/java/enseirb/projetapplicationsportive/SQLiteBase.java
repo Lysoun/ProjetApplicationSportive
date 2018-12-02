@@ -27,7 +27,7 @@ public class SQLiteBase extends SQLiteOpenHelper {
             ENTRY_RUN_ID + " INTEGER NOT NULL, " +
             ENTRY_LATITUDE + " FLOAT NOT NULL, " +
             ENTRY_LONGITUDE + " FLOAT NOT NULL, " +
-            ENTRY_TIME + " DATETIME NOT NULL, " +
+            ENTRY_TIME + " TEXT NOT NULL, " +
             ")";
 
     public final static String USERS_TABLE = "Users";
@@ -52,29 +52,49 @@ public class SQLiteBase extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
-        database.delete("runs", null, null);
-        createTableRuns(database);
+        deleteAllTables(database);
+        createAllTables(database);
     }
 
     private void createAllTables(SQLiteDatabase database){
         createTableUsers(database);
-        //createTableRuns(database);
-        //createTableEntries(database);
+        createTableRuns(database);
+        createTableEntries(database);
+    }
+
+    private void deleteAllTables(SQLiteDatabase database){
+        deleteTableEntries(database);
+        deleteTableRuns(database);
+        deleteTableUsers(database);
     }
 
     private void createTableRuns(SQLiteDatabase database){
         createTable(CREATE_TABLE_RUNS, database);
     }
 
+    private void deleteTableRuns(SQLiteDatabase database){
+        deleteTable(RUNS_TABLE, database);
+    }
+
     private void createTableUsers(SQLiteDatabase database){
         createTable(CREATE_TABLE_USERS, database);
+    }
+
+    private void deleteTableUsers(SQLiteDatabase database){
+        deleteTable(USERS_TABLE, database);
     }
 
     private void createTableEntries(SQLiteDatabase database){
         createTable(CREATE_TABLE_ENTRIES, database);
     }
 
+    private void deleteTableEntries(SQLiteDatabase database){
+        deleteTable(ENTRIES_TABLE, database);
+    }
+
     private void createTable(String name, SQLiteDatabase database){
         database.execSQL(name);
     }
+
+    private void deleteTable(String name, SQLiteDatabase database){ database.delete(name, null, null); }
 }
