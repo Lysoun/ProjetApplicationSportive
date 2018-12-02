@@ -14,6 +14,8 @@ public class StopActivity extends AppCompatActivity {
     }
 
     public void goToPrint(View view){
+        stopService(new Intent(StopActivity.this, GpsService.class));
+
         Intent intent = new Intent(this, PrintActivity.class);
         startActivity(intent);
     }
