@@ -14,15 +14,11 @@ public class Database {
     }
 
     public void open(){
-
+        database = mySqliteBase.getWritableDatabase();
     }
 
     public void close(){
-
-    }
-
-    public SQLiteDatabase getDatabase(){
-        return database;
+        mySqliteBase.close();
     }
 
     public long insertUser(String name){
@@ -53,16 +49,5 @@ public class Database {
         values.put("latitude", location.getLatitude());
 
         return database.insert("entries", null, values);
-    }
-
-    /*public long insertBook(Book book){
-        ContentValues values = new ContentValues();
-        values.put("isbn", book.getIsbn());
-        values.put("title", book.getTitle());
-        return db.insert("books", null, values);
-    }
-
-    public Book getBookByTitle(String title){
-        Cursor cursor = db.query("books", new String[](), )
     }*/
 }
