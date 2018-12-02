@@ -1,24 +1,27 @@
 package enseirb.projetapplicationsportive;
 
+import android.Manifest;
 import android.app.Service;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
+import android.os.Message;
+import android.provider.Settings;
+import android.support.v4.content.ContextCompat;
+import android.util.Log;
 
 public class GpsService extends Service {
     private Context mContext;
     static private Thread gpsThread = null;
     private LocationManager locationManager = null;
     private LocationListener locationListener = null;
-    private static Location location = null;
-    private static Double latitude = new Double(0);
-    private static Double longitude = new Double(0);
-
-    public GpsService() {
-    }
 
     @Override
     public void onCreate() {
@@ -35,6 +38,14 @@ public class GpsService extends Service {
     public int onStartCommand (Intent intent,int flags, int startId){
         mContext = getApplicationContext();
 
+        if(locationManager == null) {
+            locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        }
+
+        if(locationListener == null){
+            locationListener = new SaveLocationListener();
+        }
+
         if (gpsThread == null) {
             gpsThread = new Thread(new GpsThread(mContext, locationManager, locationListener));
             gpsThread.start();
@@ -42,14 +53,6 @@ public class GpsService extends Service {
 
         if(!gpsThread.isAlive()) {
             gpsThread.start();
-        }
-
-        if(locationManager == null) {
-            locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-        }
-
-        if(locationListener == null){
-            locationListener = new SaveLocationListener();
         }
 
         return super.onStartCommand(intent, flags, startId);
@@ -67,9 +70,6 @@ public class GpsService extends Service {
 
         gpsThread = null;
         locationManager = null;
-        location = null;
-        latitude = 0.;
-        longitude = 0.;
 
         super.onDestroy();
     }

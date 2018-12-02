@@ -13,7 +13,7 @@ import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
-public class GpsThread extends Thread implements Runnable {
+public class GpsThread extends Thread implements Runnable{
     private Context context;
     private LocationManager locationManager;
     private LocationListener locationListener;
@@ -51,13 +51,13 @@ public class GpsThread extends Thread implements Runnable {
                             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
                             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
                         } catch (IllegalArgumentException e) {
-                            e.getStackTrace();
+                            e.printStackTrace();
                             Log.w("GpsThread - catch", "illegal argument --> locationManager or locationListener is null");
                         } catch (SecurityException e) {
-                            e.getStackTrace();
+                            e.printStackTrace();
                             Log.w("GpsThread - catch", "no suitable permission");
                         } catch (RuntimeException e) {
-                            e.getStackTrace();
+                            e.printStackTrace();
                             Log.w("GpsThread - catch", "runtime error -->  calling thread has no Looper");
                         }
                     }

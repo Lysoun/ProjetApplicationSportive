@@ -27,7 +27,7 @@ public class SaveLocationListener implements LocationListener {
 
     private void saveNewLocation(Location location){
         // TODO : records a new location in the database
-        Log.w("GpsTread", "New location " + location.getLongitude() + " "
+        Log.w("GpsThread", "New location " + location.getLongitude() + " "
                 + location.getLatitude());
     }
 }
