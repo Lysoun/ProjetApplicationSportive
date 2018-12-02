@@ -129,6 +129,18 @@ public class Database {
     }
 
     public int deleteUser(String name){
+//        deleteRuns()
         return database.delete(SQLiteBase.USERS_TABLE, SQLiteBase.USER_NAME + " = " + name, null);
+    }
+
+    public int deleteRuns(long user_id){
+//TODO: implement this
+        return 0;
+    }
+
+    public int deleteEntries(long run_id){
+//TODO: implement this
+
+        return 0;
     }
 }
