@@ -127,4 +127,8 @@ public class Database {
 
         return database.insert(SQLiteBase.ENTRIES_TABLE, null, values);
     }
+
+    public int deleteUser(long user_id){
+        return database.delete(SQLiteBase.USERS_TABLE, SQLiteBase.USER_ID + " = " + user_id, null);
+    }
 }
