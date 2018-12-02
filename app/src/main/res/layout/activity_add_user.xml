@@ -5,13 +5,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ConfigActivity"
+    tools:context=".AddUserActivity"
     android:orientation="vertical">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nouvel utilisateur"/>
+        android:text="@string/add_tv_enter_name"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,12 +21,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Login : " />
+            android:text="@string/add_tv_login" />
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="login"
+            android:hint="@string/add_et_hint_login"
             android:id="@+id/newLogin"/>
 
     </LinearLayout>
@@ -34,7 +34,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="registerUser"
-        android:text="Créer" />
+        android:onClick="addUser"
+        android:text="@string/add_btn_create" />
 
 </LinearLayout>

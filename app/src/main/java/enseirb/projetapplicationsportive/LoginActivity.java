@@ -11,15 +11,24 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        // TODO: Print list of user logins
     }
 
     public void goToStart(View view){
+        // TODO: Check if user exists
+
         Intent intent = new Intent(this, StartActivity.class);
         startActivity(intent);
     }
 
-    public void newUser(View view) {
-        Intent intent = new Intent(this, ConfigActivity.class);
+    public void goToAddUser(View view) {
+        Intent intent = new Intent(this, AddUserActivity.class);
+        startActivity(intent);
+    }
+
+    public void goToDeleteUser(View view) {
+        Intent intent = new Intent(this, DeleteUserActivity.class);
         startActivity(intent);
     }
 }

@@ -2,11 +2,11 @@ package enseirb.projetapplicationsportive;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.location.Location;
 
-import java.util.Date;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Database {
     private final static int VERSION_DATABASE = 1;
@@ -18,18 +18,38 @@ public class Database {
     }
 
     public void open(){
-
+        database = mySqliteBase.getWritableDatabase();
     }
 
     public void close(){
-
+        mySqliteBase.close();
     }
 
-    public SQLiteDatabase getDatabase(){
-        return database;
+    public long insertUser(String name){
+        ContentValues values = new ContentValues();
+
+        values.put(SQLiteBase.USER_NAME, name);
+
+        return database.insert(SQLiteBase.USERS_TABLE, null, values);
     }
 
-    public long insertRun(Run run){
+    public List<String> getUsers(){
+        String[] columns = {SQLiteBase.USER_NAME};
+        String order_by = SQLiteBase.USER_NAME + " ASC";
+        Cursor cursor = database.query(SQLiteBase.USERS_TABLE, columns, null, null, null,
+                null, order_by, null);
+
+        List<String> users = new ArrayList<>();
+
+        while(!cursor.isAfterLast()){
+            users.add(cursor.getString(0));
+            cursor.moveToNext();
+        }
+
+        return users;
+    }
+
+    /*public long insertRun(Run run){
         ContentValues values = new ContentValues();
 
         long res = database.insert("runs", null, values);
@@ -39,9 +59,9 @@ public class Database {
         for (Date date: path.keySet()) {
             insertEntry(date, path.get(date));
         }
-    }
+    }*/
 
-    private long insertEntry(Date date, Location location){
+    /*private long insertEntry(Date date, Location location){
         ContentValues values = new ContentValues();
 
         values.put("date", date.toString());
@@ -49,16 +69,5 @@ public class Database {
         values.put("latitude", location.getLatitude());
 
         return database.insert("entries", null, values);
-    }
-
-    /*public long insertBook(Book book){
-        ContentValues values = new ContentValues();
-        values.put("isbn", book.getIsbn());
-        values.put("title", book.getTitle());
-        return db.insert("books", null, values);
-    }
-
-    public Book getBookByTitle(String title){
-        Cursor cursor = db.query("books", new String[](), )
     }*/
 }
