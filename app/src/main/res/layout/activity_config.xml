@@ -11,7 +11,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nouvel utilisateur"/>
+        android:text="Entrez le nom du nouvel utilisateur :"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,7 +26,7 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="login"
+            android:hint="Entrez ici votre nom"
             android:id="@+id/newLogin"/>
 
     </LinearLayout>

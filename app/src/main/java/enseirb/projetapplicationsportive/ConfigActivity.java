@@ -15,13 +15,20 @@ public class ConfigActivity extends AppCompatActivity {
         setContentView(R.layout.activity_config);
     }
 
-    public void registerUser(View view){
-        EditText editLogin = (EditText)findViewById(R.id.newLogin);
+    public void registerUser(View view) {
+        EditText editLogin = (EditText) findViewById(R.id.newLogin);
         String login = editLogin.getText().toString();
 
-        Toast.makeText(this, "Bienvenue " + login, Toast.LENGTH_SHORT).show();
-        
-        Intent intent = new Intent(this, StartActivity.class);
-        startActivity(intent);
+        // TODO: Check if user already exists
+        // TODO: Forbid registering with dangerous characters for the database
+
+        if (login.equals(""))
+            Toast.makeText(this, "Entrez un login", Toast.LENGTH_SHORT).show();
+        else {
+            Toast.makeText(this, "Bienvenue " + login, Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(this, StartActivity.class);
+            startActivity(intent);
+        }
     }
 }
