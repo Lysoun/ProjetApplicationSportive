@@ -11,13 +11,13 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Start"
+        android:text="@string/start_btn_start"
         android:onClick="goToStop"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Déconnexion"
+        android:text="@string/start_btn_logout"
         android:onClick="goToLogin"/>
 
 </LinearLayout>

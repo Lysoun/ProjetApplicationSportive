@@ -11,18 +11,18 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Fin de la course ! Félicitations !"/>
+        android:text="@string/print_tv_end"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nouvelle course"
+        android:text="@string/print_btn_new_run"
         android:onClick="goToStart"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Déconnexion"
+        android:text="@string/print_btn_logout"
         android:onClick="goToLogin"/>
 
 </LinearLayout>

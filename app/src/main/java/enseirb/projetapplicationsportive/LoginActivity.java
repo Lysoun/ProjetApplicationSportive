@@ -22,8 +22,13 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void newUser(View view) {
-        Intent intent = new Intent(this, ConfigActivity.class);
+    public void goToAddUser(View view) {
+        Intent intent = new Intent(this, AddUserActivity.class);
+        startActivity(intent);
+    }
+
+    public void goToDeleteUser(View view) {
+        Intent intent = new Intent(this, DeleteUserActivity.class);
         startActivity(intent);
     }
 }

@@ -39,9 +39,9 @@ public class Database {
         for (Date date: path.keySet()) {
             insertEntry(date, path.get(date));
         }
-    }
+    }*/
 
-    private long insertEntry(Date date, Location location){
+    /*private long insertEntry(Date date, Location location){
         ContentValues values = new ContentValues();
 
         values.put("date", date.toString());

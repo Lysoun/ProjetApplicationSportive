@@ -16,10 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ConfigActivity" />
+        <activity android:name=".AddUserActivity" />
         <activity android:name=".StopActivity" />
         <activity android:name=".PrintActivity" />
-        <activity android:name=".StartActivity"></activity>
+        <activity android:name=".StartActivity" />
+        <activity android:name=".DeleteUserActivity"></activity>
     </application>
 
 </manifest>
