@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">P.A.S.</string>
+    <string name="start_running">Commencer la course</string>
+    <string name="stop_running">Terminer la course</string>
 </resources>
