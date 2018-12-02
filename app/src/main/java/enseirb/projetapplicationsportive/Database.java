@@ -3,10 +3,6 @@ package enseirb.projetapplicationsportive;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.location.Location;
-
-import java.util.Date;
-import java.util.Map;
 
 public class Database {
     private final static int VERSION_DATABASE = 1;
@@ -18,18 +14,22 @@ public class Database {
     }
 
     public void open(){
-
+        database = mySqliteBase.getWritableDatabase();
     }
 
     public void close(){
-
+        mySqliteBase.close();
     }
 
-    public SQLiteDatabase getDatabase(){
-        return database;
+    public long insertUser(String name){
+        ContentValues values = new ContentValues();
+
+        values.put(SQLiteBase.USER_NAME, name);
+
+        return database.insert(SQLiteBase.USERS_TABLE, null, values);
     }
 
-    public long insertRun(Run run){
+    /*public long insertRun(Run run){
         ContentValues values = new ContentValues();
 
         long res = database.insert("runs", null, values);
@@ -49,16 +49,5 @@ public class Database {
         values.put("latitude", location.getLatitude());
 
         return database.insert("entries", null, values);
-    }
-
-    /*public long insertBook(Book book){
-        ContentValues values = new ContentValues();
-        values.put("isbn", book.getIsbn());
-        values.put("title", book.getTitle());
-        return db.insert("books", null, values);
-    }
-
-    public Book getBookByTitle(String title){
-        Cursor cursor = db.query("books", new String[](), )
     }*/
 }
