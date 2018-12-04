@@ -21,9 +21,15 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/name"
             android:hint="@string/log_et_hint_login" />
-
     </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/error"
+        android:id="@+id/error"/>
 
     <Button
         android:layout_width="wrap_content"

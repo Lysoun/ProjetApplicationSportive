@@ -52,6 +52,16 @@ public class Database {
         return users;
     }
 
+    public boolean usersExists(String name){
+        String[] columns = {SQLiteBase.USER_ID};
+        String selection = SQLiteBase.USER_NAME + " = '" + name + "'";
+
+        Cursor cursor = database.query(SQLiteBase.USERS_TABLE, columns, selection, null, null,
+                null, null, null);
+
+        return cursor.moveToFirst();
+    }
+
     /*public long insertRun(Run run){
         ContentValues values = new ContentValues();
 

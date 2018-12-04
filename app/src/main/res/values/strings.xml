@@ -19,6 +19,7 @@
     <string name="log_btn_login">Se connecter</string>
     <string name="log_btn_add_user">Nouvel utilisateur</string>
     <string name="log_btn_del_user">Supprimer utilisateur</string>
+    <string name="log_tv_error">Cet utilisateur n\'existe pas.</string>
 
     <string name="print_tv_end">Fin de la course ! Félicitations !</string>
     <string name="print_btn_new_run">Nouvelle course</string>
