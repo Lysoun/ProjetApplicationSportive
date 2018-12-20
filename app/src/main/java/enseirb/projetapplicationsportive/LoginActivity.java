@@ -37,13 +37,10 @@ public class LoginActivity extends AppCompatActivity {
         String name = ((EditText) findViewById(R.id.name)).getText().toString();
 
         if(!name.equals("") && database.usersExists(name)) {
-            database.close();
             Intent intent = new Intent(this, StartActivity.class);
             startActivity(intent);
         }
         else{
-            database.close();
-            Log.i("login", "non");
             ((TextView) findViewById(R.id.error)).setText(R.string.log_tv_error);
         }
     }

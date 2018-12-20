@@ -27,7 +27,7 @@ public class SQLiteBase extends SQLiteOpenHelper {
             ENTRY_RUN_ID + " INTEGER NOT NULL, " +
             ENTRY_LATITUDE + " FLOAT NOT NULL, " +
             ENTRY_LONGITUDE + " FLOAT NOT NULL, " +
-            ENTRY_TIME + " TEXT NOT NULL, " +
+            ENTRY_TIME + " TEXT NOT NULL" +
             ")";
 
     public final static String USERS_TABLE = "Runners";
@@ -36,7 +36,7 @@ public class SQLiteBase extends SQLiteOpenHelper {
 
     private final static String CREATE_TABLE_USERS = "CREATE TABLE " + USERS_TABLE + "(" +
             USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            USER_NAME + " TEXT NOT NULL, " +
+            USER_NAME + " TEXT NOT NULL" +
             ")"
             ;
 
