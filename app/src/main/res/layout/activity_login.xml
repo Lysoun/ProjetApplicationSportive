@@ -8,6 +8,17 @@
     tools:context=".LoginActivity"
     android:orientation="vertical">
 
+<!--    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/users">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/user"/>
+    </ListView>
+    -->
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -16,25 +27,37 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Login : " />
+            android:text="@string/log_tv_login" />
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="login" />
-
+            android:id="@+id/name"
+            android:hint="@string/log_et_hint_login" />
     </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/error"
+        android:id="@+id/error"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Log in"
+        android:text="@string/log_btn_login"
         android:onClick="goToStart"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nouvel utilisateur"
-        android:onClick="newUser"/>
+        android:text="@string/log_btn_add_user"
+        android:onClick="goToAddUser"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/log_btn_del_user"
+        android:onClick="goToDeleteUser"/>
 
 </LinearLayout>

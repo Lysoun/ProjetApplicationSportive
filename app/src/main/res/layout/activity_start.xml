@@ -8,17 +8,17 @@
     android:layout_height="match_parent"
     tools:context=".StartActivity"
     android:orientation="vertical">
-    
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/start_running"
-        android:onClick="startRunning"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Retour à l'accueil"
+        android:text="@string/start_btn_start"
+        android:onClick="goToStop"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/start_btn_logout"
         android:onClick="goToLogin"/>
 
 </LinearLayout>

@@ -11,7 +11,7 @@ public class SQLiteBase extends SQLiteOpenHelper {
 
     private final static String CREATE_TABLE_RUNS = "CREATE TABLE " + RUNS_TABLE + "(" +
             RUN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            RUN_RUNNER_ID + " INTEGER NOT NULL, " +
+            RUN_RUNNER_ID + " INTEGER NOT NULL" +
             "); "
             ;
 

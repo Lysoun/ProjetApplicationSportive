@@ -123,6 +123,39 @@ public class Database {
         return database.insert(SQLiteBase.RUNNERS, null, values);
     }
 
+    public String[] getUsers(){
+        String[] columns = {SQLiteBase.USER_NAME};
+        String order_by = SQLiteBase.USER_NAME + " ASC";
+        Cursor cursor = database.query(SQLiteBase.USERS_TABLE, columns, null, null, null,
+                null, order_by, null);
+
+        List<String> users = new ArrayList<>();
+
+        cursor.moveToFirst();
+
+        while(!cursor.isAfterLast()){
+            users.add(cursor.getString(0));
+            cursor.moveToNext();
+        }
+
+        String[] res = new String[users.size()];
+        for(int i = 0 ; i < users.size() ; i++){
+            res[i] = users.get(i);
+        }
+
+        return res;
+    }
+
+    public boolean usersExists(String name){
+        String[] columns = {SQLiteBase.USER_ID};
+        String selection = SQLiteBase.USER_NAME + " = '" + name + "'";
+
+        Cursor cursor = database.query(SQLiteBase.USERS_TABLE, columns, selection, null, null,
+                null, null, null);
+
+        return cursor.moveToFirst();
+    }
+    
     /**
      * Inserts a new run in the database, inserting
      * it and then inserting all its entries

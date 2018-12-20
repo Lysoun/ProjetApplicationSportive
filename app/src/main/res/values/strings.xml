@@ -1,5 +1,32 @@
 <resources>
     <string name="app_name">P.A.S.</string>
-    <string name="start_running">Commencer la course</string>
-    <string name="stop_running">Terminer la course</string>
+
+    <string name="add_tv_enter_name">Entrez le nom du nouvel utilisateur : </string>
+    <string name="add_tv_login">Login : </string>
+    <string name="add_et_hint_login">Entrez ici votre nom</string>
+    <string name="add_btn_create">Créer</string>
+    <string name="add_btn_return">Retour</string>
+
+    <string name="del_tv_warning">Attention, cette opération est irréversible et détruira toutes les donnée concernant l\'utilisateur.</string>
+    <string name="del_tv_enter_name">Entrez le nom de l\'utilisateur à supprimer : </string>
+    <string name="del_tv_login">Login : </string>
+    <string name="del_et_hint_login">Entrez ici le nom</string>
+    <string name="del_btn_delete">Supprimer</string>
+    <string name="del_btn_return">Retour</string>
+
+    <string name="log_tv_login">Login : </string>
+    <string name="log_et_hint_login">Entrez ici votre login</string>
+    <string name="log_btn_login">Se connecter</string>
+    <string name="log_btn_add_user">Nouvel utilisateur</string>
+    <string name="log_btn_del_user">Supprimer utilisateur</string>
+    <string name="log_tv_error">Cet utilisateur n\'existe pas.</string>
+
+    <string name="print_tv_end">Fin de la course ! Félicitations !</string>
+    <string name="print_btn_new_run">Nouvelle course</string>
+    <string name="print_btn_logout">Déconnexion</string>
+
+    <string name="start_btn_start">Start</string>
+    <string name="start_btn_logout">Déconnexion</string>
+
+    <string name="stop_btn_stop">Stop</string>
 </resources>

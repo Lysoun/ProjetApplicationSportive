@@ -26,6 +26,8 @@
         <activity android:name=".ConfigActivity" />
         <activity android:name=".StopActivity" />
         <activity android:name=".PrintActivity" />
+        <activity android:name=".DeleteUserActivity" />
+        <activity android:name=".AddUserActivity" />
         <service
             android:name=".GpsService"
             android:enabled="true"
