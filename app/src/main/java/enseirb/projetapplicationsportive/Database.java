@@ -58,10 +58,10 @@ public class Database {
     public List<Run> getRuns(long runnerId){
         String[] columnsRunsQuery = {SQLiteBase.RUN_ID};
         String[] columnsEntriesQuery = {SQLiteBase.ENTRY_TIME, SQLiteBase.ENTRY_LATITUDE, SQLiteBase.ENTRY_LONGITUDE};
-        String[] columnsRunnersQuery = {SQLiteBase.RUNNER_NAME};
+        String[] columnsRunnersQuery = {SQLiteBase.USER_NAME};
 
         String selectionRunsQuery = SQLiteBase.RUN_RUNNER_ID + " = " + runnerId;
-        String selectionRunnersQuery = SQLiteBase.RUNNER_ID + " = " + runnerId;
+        String selectionRunnersQuery = SQLiteBase.USER_ID + " = " + runnerId;
 
         String orderByRunsQuery = SQLiteBase.RUN_ID + " DESC";
         String orderByEntriesQuery = SQLiteBase.ENTRY_TIME + " DESC";
@@ -95,7 +95,7 @@ public class Database {
                 cursorEntries.moveToNext();
             }
 
-            Cursor cursorRunners = database.query(true, SQLiteBase.RUNNERS, columnsRunnersQuery, selectionRunnersQuery,
+            Cursor cursorRunners = database.query(true, SQLiteBase.USERS_TABLE, columnsRunnersQuery, selectionRunnersQuery,
                     null, null, null, null, null);
 
             cursorRunners.moveToFirst();
@@ -118,9 +118,9 @@ public class Database {
     public long insertUser(String name){
         ContentValues values = new ContentValues();
 
-        values.put(SQLiteBase.RUNNER_NAME, name);
+        values.put(SQLiteBase.USER_NAME, name);
 
-        return database.insert(SQLiteBase.RUNNERS, null, values);
+        return database.insert(SQLiteBase.USERS_TABLE, null, values);
     }
 
     public String[] getUsers(){
@@ -211,7 +211,7 @@ public class Database {
      */
     public int deleteUser(String name, long userId){
         deleteRuns(userId);
-        return database.delete(SQLiteBase.RUNNERS, SQLiteBase.RUNNER_NAME + " = " + name, null);
+        return database.delete(SQLiteBase.USERS_TABLE, SQLiteBase.USER_NAME + " = " + name, null);
     }
 
     /**

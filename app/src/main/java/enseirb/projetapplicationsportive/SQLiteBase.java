@@ -30,13 +30,13 @@ public class SQLiteBase extends SQLiteOpenHelper {
             ENTRY_TIME + " TEXT NOT NULL, " +
             ")";
 
-    public final static String RUNNERS = "Runners";
-    public final static String RUNNER_ID = "id";
-    public final static String RUNNER_NAME = "name";
+    public final static String USERS_TABLE = "Runners";
+    public final static String USER_ID = "id";
+    public final static String USER_NAME = "name";
 
-    private final static String CREATE_TABLE_USERS = "CREATE TABLE " + RUNNERS + "(" +
-            RUNNER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            RUNNER_NAME + " TEXT NOT NULL, " +
+    private final static String CREATE_TABLE_USERS = "CREATE TABLE " + USERS_TABLE + "(" +
+            USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            USER_NAME + " TEXT NOT NULL, " +
             ")"
             ;
 
@@ -81,7 +81,7 @@ public class SQLiteBase extends SQLiteOpenHelper {
     }
 
     private void deleteTableUsers(SQLiteDatabase database){
-        deleteTable(RUNNERS, database);
+        deleteTable(USERS_TABLE, database);
     }
 
     private void createTableEntries(SQLiteDatabase database){
