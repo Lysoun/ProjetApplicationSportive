@@ -34,7 +34,7 @@ public class Database {
         return database.insert(SQLiteBase.USERS_TABLE, null, values);
     }
 
-    public List<String> getUsers(){
+    public String[] getUsers(){
         String[] columns = {SQLiteBase.USER_NAME};
         String order_by = SQLiteBase.USER_NAME + " ASC";
         Cursor cursor = database.query(SQLiteBase.USERS_TABLE, columns, null, null, null,
@@ -49,7 +49,12 @@ public class Database {
             cursor.moveToNext();
         }
 
-        return users;
+        String[] res = new String[users.size()];
+        for(int i = 0 ; i < users.size() ; i++){
+            res[i] = users.get(i);
+        }
+
+        return res;
     }
 
     public boolean usersExists(String name){

@@ -19,7 +19,7 @@ public class AddUserActivity extends AppCompatActivity {
         db = new Database(this);
         db.open();
 
-        List<String> users = db.getUsers();
+        String[] users = db.getUsers();
 
         for(String user : users){
             Log.w("users ", user, null);
