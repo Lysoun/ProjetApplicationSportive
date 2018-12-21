@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="error">#FF0000</color>
+    <color name="user_divider">#b3b3b4</color>
+    <color name="black">#000000</color>
 </resources>

@@ -30,7 +30,7 @@ public class SQLiteBase extends SQLiteOpenHelper {
             ENTRY_TIME + " TEXT NOT NULL" +
             ")";
 
-    public final static String USERS_TABLE = "Runners";
+    public final static String USERS_TABLE = "Users";
     public final static String USER_ID = "id";
     public final static String USER_NAME = "name";
 

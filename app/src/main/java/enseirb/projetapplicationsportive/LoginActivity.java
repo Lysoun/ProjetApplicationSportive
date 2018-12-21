@@ -9,8 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 //import android.widget.ListView;
 import android.widget.TextView;
-
-//import java.util.List;
+import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
     private Database database;
@@ -25,7 +24,6 @@ public class LoginActivity extends AppCompatActivity {
 
 //        String[] users = database.getUsers();
  //       initializeListView(users);
-        // TODO: Print list of user logins
     }
 
 /*    private void initializeListView(String[] data){

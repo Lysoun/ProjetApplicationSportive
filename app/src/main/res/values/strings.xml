@@ -8,10 +8,7 @@
     <string name="add_btn_return">Retour</string>
 
     <string name="del_tv_warning">Attention, cette opération est irréversible et détruira toutes les donnée concernant l\'utilisateur.</string>
-    <string name="del_tv_enter_name">Entrez le nom de l\'utilisateur à supprimer : </string>
-    <string name="del_tv_login">Login : </string>
-    <string name="del_et_hint_login">Entrez ici le nom</string>
-    <string name="del_btn_delete">Supprimer</string>
+    <string name="del_tv_enter_name">Sélectionnez le nom de l\'utilisateur à supprimer : </string>
     <string name="del_btn_return">Retour</string>
 
     <string name="log_tv_login">Login : </string>
