@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
@@ -21,7 +22,9 @@ public class GpsService extends Service {
     private Context mContext;
     static private Thread gpsThread = null;
     private LocationManager locationManager = null;
-    private LocationListener locationListener = null;
+    private SaveLocationListener locationListener = null;
+    private Run run = null;
+    private long userId = -1;
 
     @Override
     public void onCreate() {
@@ -36,6 +39,7 @@ public class GpsService extends Service {
 
     @Override
     public int onStartCommand (Intent intent,int flags, int startId){
+        userId = intent.getLongExtra("userId", -1);
         mContext = getApplicationContext();
 
         if(locationManager == null) {
@@ -47,7 +51,7 @@ public class GpsService extends Service {
         }
 
         if (gpsThread == null) {
-            gpsThread = new Thread(new GpsThread(mContext, locationManager, locationListener));
+            gpsThread = new Thread(new GpsThread(mContext, locationManager, locationListener, userId));
             gpsThread.start();
         }
 
@@ -66,6 +70,7 @@ public class GpsService extends Service {
 
         if(gpsThread != null) {
             gpsThread.interrupt();
+
         }
 
         gpsThread = null;

@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Handler;
@@ -13,17 +14,24 @@ import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
+import java.util.List;
+
 public class GpsThread extends Thread implements Runnable{
     private Context context;
     private LocationManager locationManager;
-    private LocationListener locationListener;
+    private SaveLocationListener locationListener;
     private boolean flag = false;
     public Handler handler;
+    private Database database;
+    private long runnerId;
 
-    public GpsThread(Context context, LocationManager locationManager, LocationListener locationListener){
+    public GpsThread(Context context, LocationManager locationManager, SaveLocationListener locationListener, long runnerId){
         this.context = context;
         this.locationManager = locationManager;
         this.locationListener = locationListener;
+        this.runnerId = runnerId;
+        database = new Database(context);
+        database.open();
     }
 
     @Override
@@ -68,6 +76,19 @@ public class GpsThread extends Thread implements Runnable{
                 return;
             }
         }
+
+        // When the thread is interrupted, the run is done so let's save it
+        // in the database!
+        Log.w("GpsThread", "Thread interrupted! Let's insert the run!");
+        List<Location> path = locationListener.getPath();
+
+        if(path != null) {
+            if (path.isEmpty())
+                path.add(locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER));
+            database.insertRun(new Run(path, runnerId));
+        }
+
+        database.close();
     }
 
     private Boolean displayGpsStatus() {

@@ -11,10 +11,6 @@ import android.util.Log;
 import android.view.View;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.View;
 public class StartActivity extends AppCompatActivity {
     private static final int PERMISSION_REQUEST_CODE = 100;
 
@@ -35,7 +31,9 @@ public class StartActivity extends AppCompatActivity {
         } else {
 
             // start service
-            startService(new Intent(StartActivity.this, GpsService.class));
+            Intent intent = new Intent(StartActivity.this, GpsService.class);
+            intent.putExtra("userId", this.getIntent().getLongExtra("userId", -1));
+            startService(intent);
 
             // go to StopActivity
             goToStop();

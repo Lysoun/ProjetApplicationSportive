@@ -5,9 +5,21 @@ import android.location.LocationListener;
 import android.os.Bundle;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 public class SaveLocationListener implements LocationListener {
+    private List<Location> path;
+
+    public SaveLocationListener(){
+        path = new ArrayList<Location>();
+    }
+
+    public List<Location> getPath(){
+        return new ArrayList<Location>(path);
+    }
+
     @Override
     public void onLocationChanged(Location location) {
         saveNewLocation(location);
@@ -26,7 +38,7 @@ public class SaveLocationListener implements LocationListener {
     }
 
     private void saveNewLocation(Location location) {
-        // TODO : records a new location in the database
+        path.add(location);
         Log.w("GpsThread", "New location " + location.getLongitude() + " "
                 + location.getLatitude());
     }
