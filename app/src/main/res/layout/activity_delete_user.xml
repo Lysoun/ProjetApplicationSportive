@@ -30,12 +30,4 @@
         android:divider="@color/user_divider"
         android:dividerHeight="1dp" />
 
-    <!--
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="deleteUser"
-        android:text="@string/del_btn_delete" />
-    -->
-
 </LinearLayout>
