@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
+import android.util.Log;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -17,6 +18,7 @@ import java.util.Map;
 public class Database {
     private final static int VERSION_DATABASE = 1;
     private final static String DATE_PATTERN = "YYYY-MM-DD HH:MM:SS.SSS";
+    private final static String DATABASE_PROVIDER = "database";
     private SQLiteDatabase database;
     private SQLiteBase mySqliteBase;
 
@@ -73,10 +75,10 @@ public class Database {
         cursorRuns.moveToFirst();
 
         // For each run, retrieving its entries
-        List<Run> runs = new ArrayList<Run>();
+        List<Run> runs = new ArrayList<>();
 
         while(!cursorRuns.isAfterLast()){
-            Map<Date, Location> entries = new HashMap<Date, Location>();
+            List<Location> entries = new ArrayList<>();
 
             String selectionEntriesQuery = SQLiteBase.ENTRY_RUN_ID + " = " + cursorRuns.getString(0);
             Cursor cursorEntries = database.query(true, SQLiteBase.ENTRIES_TABLE, columnsEntriesQuery, selectionEntriesQuery,
@@ -84,13 +86,16 @@ public class Database {
             cursorEntries.moveToFirst();
 
             while(!cursorEntries.isAfterLast()){
+                long time = cursorEntries.getLong(0);
+                double latitude = cursorEntries.getDouble(1);
+                double longitude = cursorEntries.getDouble(2);
 
-                try {
-                    Date date = new SimpleDateFormat(DATE_PATTERN).parse(cursorEntries.getString(0));
-                    // TODO: Retrieve the location!!
-                } catch(ParseException e){
-                    e.printStackTrace();
-                }
+                Location location = new Location(DATABASE_PROVIDER);
+                location.setTime(time);
+                location.setLatitude(latitude);
+                location.setLongitude(longitude);
+
+                entries.add(location);
 
                 cursorEntries.moveToNext();
             }
@@ -146,14 +151,22 @@ public class Database {
         return res;
     }
 
-    public boolean usersExists(String name){
+    /**
+     * Checks if a user already exists in the database
+     * @param name Name of the user we are looking for
+     * @return -1 if the user does not exist, their id if they do
+     */
+    public long usersExists(String name){
         String[] columns = {SQLiteBase.USER_ID};
         String selection = SQLiteBase.USER_NAME + " = '" + name + "'";
 
         Cursor cursor = database.query(SQLiteBase.USERS_TABLE, columns, selection, null, null,
                 null, null, null);
 
-        return cursor.moveToFirst();
+        if(!cursor.moveToFirst())
+            return -1;
+
+        return cursor.getLong(0);
     }
     
     /**
@@ -167,12 +180,14 @@ public class Database {
 
         values.put(SQLiteBase.RUN_RUNNER_ID, run.getRunnerId());
 
-        long runId = database.insert("runs", null, values);
+        long runId = database.insert(SQLiteBase.RUNS_TABLE, null, values);
 
-        Map<Date, Location> path = run.getPath();
+        List<Location> path = run.getPath();
 
-        for (Date date: path.keySet()) {
-            insertEntry(runId, date, path.get(date));
+        for (Location location : path) {
+            Log.w("GpsThread","Inserting path time: " + location.getTime() + " latitude : " + location.getLatitude()
+            + " " + location.getLongitude());
+            insertEntry(runId, location);
         }
 
         return runId;
@@ -181,18 +196,15 @@ public class Database {
     /**
      * Inserts an entry in the database
      * @param runId The entry's run id
-     * @param date The entry's date. This may be useless, since there is already a date
-     *             in the location...
      * @param location The entry's location
      * @return Id of the entry that was just inserted
      */
-    private long insertEntry(long runId, Date date, Location location){
+    private long insertEntry(long runId, Location location){
         ContentValues values = new ContentValues();
 
         values.put(SQLiteBase.ENTRY_RUN_ID, runId);
 
-        String formatted_date = new SimpleDateFormat(DATE_PATTERN).format(date);
-        values.put(SQLiteBase.ENTRY_TIME, formatted_date);
+        values.put(SQLiteBase.ENTRY_TIME, location.getTime());
 
         values.put(SQLiteBase.ENTRY_LONGITUDE, location.getLongitude());
 
