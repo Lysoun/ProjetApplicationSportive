@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 //import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
     private Database database;
@@ -31,6 +32,9 @@ public class LoginActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, StartActivity.class);
                 intent.putExtra("userId", userId);
                 startActivity(intent);
+            }
+            else {
+                ((TextView) findViewById(R.id.login_error)).setText(R.string.log_tv_error);
             }
         }
         else {

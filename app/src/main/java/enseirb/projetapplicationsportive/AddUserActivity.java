@@ -43,7 +43,7 @@ public class AddUserActivity extends AppCompatActivity {
 
         if (login.equals(""))
             ((TextView) findViewById(R.id.add_error)).setText(R.string.add_tv_error_no_login);
-        else if(db.usersExists(login))
+        else if(db.usersExists(login) != -1)
             ((TextView) findViewById(R.id.add_error)).setText(R.string.add_tv_error_login_exists);
         else {
             Log.w("database returns", db.insertUser(login) + "", null);
