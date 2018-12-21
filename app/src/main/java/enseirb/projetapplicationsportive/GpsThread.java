@@ -16,7 +16,7 @@ import android.util.Log;
 
 import java.util.List;
 
-public class GpsThread extends Thread implements Runnable{
+public class GpsThread implements Runnable{
     private Context context;
     private LocationManager locationManager;
     private SaveLocationListener locationListener;
@@ -83,8 +83,6 @@ public class GpsThread extends Thread implements Runnable{
         List<Location> path = locationListener.getPath();
 
         if(path != null) {
-            if (path.isEmpty())
-                path.add(locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER));
             database.insertRun(new Run(path, runnerId));
         }
 
@@ -99,5 +97,9 @@ public class GpsThread extends Thread implements Runnable{
         } else {
             return false;
         }
+    }
+
+    public boolean isEmptyPath(){
+        return locationListener.getPath().isEmpty();
     }
 }

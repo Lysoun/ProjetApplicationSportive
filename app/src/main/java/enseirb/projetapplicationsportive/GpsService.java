@@ -20,7 +20,8 @@ import android.util.Log;
 
 public class GpsService extends Service {
     private Context mContext;
-    static private Thread gpsThread = null;
+    static private GpsThread gpsThread = null;
+    static private Thread thread = null;
     private LocationManager locationManager = null;
     private SaveLocationListener locationListener = null;
     private Run run = null;
@@ -51,12 +52,13 @@ public class GpsService extends Service {
         }
 
         if (gpsThread == null) {
-            gpsThread = new Thread(new GpsThread(mContext, locationManager, locationListener, userId));
-            gpsThread.start();
+            gpsThread = new GpsThread(mContext, locationManager, locationListener, userId);
+            thread = new Thread(gpsThread);
+            thread.start();
         }
 
-        if(!gpsThread.isAlive()) {
-            gpsThread.start();
+        if(!thread.isAlive()) {
+            thread.start();
         }
 
         return super.onStartCommand(intent, flags, startId);
@@ -68,14 +70,17 @@ public class GpsService extends Service {
             locationManager.removeUpdates(locationListener);
         }
 
-        if(gpsThread != null) {
-            gpsThread.interrupt();
-
+        if(thread != null) {
+            thread.interrupt();
         }
 
-        gpsThread = null;
+        thread = null;
         locationManager = null;
 
         super.onDestroy();
+    }
+
+    public static boolean lastRunIsValid(){
+        return !gpsThread.isEmptyPath();
     }
 }

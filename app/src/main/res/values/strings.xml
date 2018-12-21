@@ -21,6 +21,7 @@
     <string name="log_tv_error">Cet utilisateur n\'existe pas.</string>
 
     <string name="print_tv_end">Fin de la course ! Félicitations !</string>
+    <string name="print_tv_end_error">La course que vous venez de terminer est invalide, elle ne sera donc pas enregistrée.</string>
     <string name="print_btn_new_run">Nouvelle course</string>
     <string name="print_btn_logout">Déconnexion</string>
 
