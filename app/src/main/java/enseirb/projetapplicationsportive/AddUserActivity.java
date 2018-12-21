@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -38,11 +39,12 @@ public class AddUserActivity extends AppCompatActivity {
         EditText editLogin = (EditText) findViewById(R.id.newLogin);
         String login = editLogin.getText().toString();
 
-        // TODO: Check if user already exists
         // TODO: Forbid registering with dangerous characters for the database
 
         if (login.equals(""))
-            Toast.makeText(this, "Entrez un login", Toast.LENGTH_SHORT).show();
+            ((TextView) findViewById(R.id.add_error)).setText(R.string.add_tv_error_no_login);
+        else if(db.usersExists(login))
+            ((TextView) findViewById(R.id.add_error)).setText(R.string.add_tv_error_login_exists);
         else {
             Log.w("database returns", db.insertUser(login) + "", null);
 
