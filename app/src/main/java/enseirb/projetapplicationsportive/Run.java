@@ -37,4 +37,19 @@ public class Run {
     }
 
     public long getRunnerId(){ return runnerId; }
+
+    @Override
+    public String toString(){
+        String res = "";
+
+        for(Location location : path){
+            res += "• Latitude : " + location.getLatitude() +
+                    "\n   Longitude : " + location.getLongitude() +
+                    "\n   Temps : " + new Date(location.getTime()).toString() +
+                    "\n\n";
+
+        }
+
+        return res;
+    }
 }

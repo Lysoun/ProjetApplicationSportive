@@ -30,12 +30,12 @@ public class StartActivity extends AppCompatActivity {
                     PERMISSION_REQUEST_CODE);
         } else {
 
-            // start service
+            // Starting service
             Intent intent = new Intent(StartActivity.this, GpsService.class);
             intent.putExtra("userId", this.getIntent().getLongExtra("userId", -1));
             startService(intent);
 
-            // go to StopActivity
+            // Going to StopActivity
             goToStop();
         }
     }
@@ -59,6 +59,7 @@ public class StartActivity extends AppCompatActivity {
 
     private void goToStop(){
         Intent intent = new Intent(this, StopActivity.class);
+        intent.putExtra("userId", this.getIntent().getLongExtra("userId", -1));
         startActivity(intent);
     }
 
