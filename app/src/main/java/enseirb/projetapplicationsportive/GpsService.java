@@ -51,7 +51,7 @@ public class GpsService extends Service {
             locationListener = new SaveLocationListener();
         }
 
-        if (gpsThread == null) {
+        if (thread == null) {
             gpsThread = new GpsThread(mContext, locationManager, locationListener, userId);
             thread = new Thread(gpsThread);
             thread.start();
