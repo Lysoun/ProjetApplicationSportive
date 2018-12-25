@@ -224,34 +224,25 @@ public class Database {
         deleteRuns(userId);
         return database.delete(SQLiteBase.USERS_TABLE,
                 SQLiteBase.USER_ID + " = " + userId,
-                null); // TODO: Je crois que cette ligne plante aussi...
+                null);
     }
 
     /**
      * Deletes all the runs recorded by the runner
-     * @param runnerId Id of the runner whose runs are to be
-     *                 deleted
+     * @param runnerId Id of the runner whose runs are to be deleted
      * @return The number of runs deleted
      */
     public int deleteRuns(long runnerId){
         int res = 0;
 
-        Log.i("ThatsMyTest", "Inside deleteRuns, runnerId = " + runnerId);
-
         // Look for all the user's runs
         String[] columns = {SQLiteBase.RUN_ID};
-        for(String c: columns)
-            Log.i("ThatsMyTest", "columns = " + c);
-
         String selection = SQLiteBase.RUN_RUNNER_ID + " = " + runnerId;
-        Log.i("ThatsMyTest", "selection = " + selection);
 
         Cursor cursorRuns = database.query(true, SQLiteBase.RUNS_TABLE, columns, selection,
                 null, null, null, null, null);
-        Log.i("ThatsMyTest", "After cursorRuns");
 
         cursorRuns.moveToFirst();
-        Log.i("ThatsMyTest", "After moveToFirst");
 
         // For each run, delete its entries and then delete the run
         while(!cursorRuns.isAfterLast()) {
@@ -260,8 +251,6 @@ public class Database {
             res += database.delete(SQLiteBase.RUNS_TABLE, SQLiteBase.RUN_ID + " = " + runId, null);
             cursorRuns.moveToNext();
         }
-
-        Log.i("ThatsMyTest", "After while");
 
         return res;
     }
