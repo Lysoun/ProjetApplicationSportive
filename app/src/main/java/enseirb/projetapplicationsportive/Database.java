@@ -216,15 +216,15 @@ public class Database {
     /**
      * Deletes the user from the database
      * and all their runs
-     * @param name Name of the user to delete
      * @param userId Id of the user to delete
      * @return The number of users deleted, 1 if the user was successfully
      * deleted and 0 otherwise.
      */
-    public int deleteUser(String name, long userId){
+    public int deleteUser(long userId){
         deleteRuns(userId);
-        //return database.delete(SQLiteBase.USERS_TABLE, SQLiteBase.USER_NAME + " = " + name, null); // TODO: Je crois que cette ligne plante aussi...
-        return 1;
+        return database.delete(SQLiteBase.USERS_TABLE,
+                SQLiteBase.USER_ID + " = " + userId,
+                null); // TODO: Je crois que cette ligne plante aussi...
     }
 
     /**
