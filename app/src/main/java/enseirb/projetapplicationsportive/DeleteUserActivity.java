@@ -51,12 +51,16 @@ public class DeleteUserActivity extends AppCompatActivity {
         db.close();
     }
 
-    private void deleteUser(View view){
-        String login = ((TextView)(view.findViewById(R.id.listview_tv))).getText().toString();
-        Toast.makeText(this, "Utilisateur à supprimer : " + login, Toast.LENGTH_SHORT).show();
+    private void deleteUser(View view) {
+        String login = ((TextView) (view.findViewById(R.id.listview_tv))).getText().toString();
 
         // TODO: Suppr user
-        //db.deleteUser(login); // TODO: do not allow two users with same name
+        long userId = db.usersExists(login);
+
+        if (userId != -1){ // The else case shouldn't be possible given the selection in the ListView
+            Toast.makeText(this, "Utilisateur à supprimer : " + login + " " + userId, Toast.LENGTH_SHORT).show();
+            db.deleteUser(login, userId);
+        }
 
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
