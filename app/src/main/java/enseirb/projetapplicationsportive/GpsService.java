@@ -30,6 +30,7 @@ public class GpsService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        Log.i("GpsThread", "GpsService created");
     }
 
     @Override
@@ -43,29 +44,37 @@ public class GpsService extends Service {
         userId = intent.getLongExtra("userId", -1);
         mContext = getApplicationContext();
 
+        Log.i("GpsThread", "GpsService onStartCommand()");
+
         if(locationManager == null) {
             locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+            Log.i("GpsThread", "locationManager initialized");
         }
 
         if(locationListener == null){
             locationListener = new SaveLocationListener();
+            Log.i("GpsThread", "locationListener initialized");
         }
 
         if (gpsThread == null) {
             gpsThread = new GpsThread(mContext, locationManager, locationListener, userId);
+            Log.i("GpsThread", "GpsThread initialized");
+        }
+        if(thread == null) {
             thread = new Thread(gpsThread);
-            thread.start();
+            Log.i("GpsThread", "Thread initialized");
         }
+        Log.i("GpsThread", "Thread restarted");
+        thread.start();
 
-        if(!thread.isAlive()) {
-            thread.start();
-        }
 
         return super.onStartCommand(intent, flags, startId);
     }
 
     @Override
     public void onDestroy () {
+        Log.i("GpsThread", "GpsService destroyed");
+
         if (locationManager != null) {
             locationManager.removeUpdates(locationListener);
         }
@@ -76,6 +85,7 @@ public class GpsService extends Service {
 
         thread = null;
         locationManager = null;
+        locationListener = null;
 
         super.onDestroy();
     }

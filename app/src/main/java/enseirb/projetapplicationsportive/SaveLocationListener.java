@@ -14,6 +14,7 @@ public class SaveLocationListener implements LocationListener {
 
     public SaveLocationListener(){
         path = new ArrayList<Location>();
+        Log.i("GpsThread", "SaveLocationListener created");
     }
 
     public List<Location> getPath(){
@@ -22,6 +23,7 @@ public class SaveLocationListener implements LocationListener {
 
     @Override
     public void onLocationChanged(Location location) {
+        Log.i("GpsThread - locListener", "onLocationChanged");
         saveNewLocation(location);
     }
 
@@ -39,7 +41,7 @@ public class SaveLocationListener implements LocationListener {
 
     private void saveNewLocation(Location location) {
         path.add(location);
-        Log.w("GpsThread", "New location " + location.getLongitude() + " "
+        Log.i("GpsThread - locListener", "New location " + location.getLongitude() + " "
                 + location.getLatitude());
     }
 }
