@@ -3,6 +3,7 @@ package enseirb.projetapplicationsportive;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class SQLiteBase extends SQLiteOpenHelper {
     public final static String RUNS_TABLE = "Runs";
@@ -12,7 +13,7 @@ public class SQLiteBase extends SQLiteOpenHelper {
     private final static String CREATE_TABLE_RUNS = "CREATE TABLE " + RUNS_TABLE + "(" +
             RUN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             RUN_RUNNER_ID + " INTEGER NOT NULL" +
-            "); "
+            ")"
             ;
 
     public final static String ENTRIES_TABLE = "Entries";
@@ -28,7 +29,8 @@ public class SQLiteBase extends SQLiteOpenHelper {
             ENTRY_LATITUDE + " FLOAT NOT NULL, " +
             ENTRY_LONGITUDE + " FLOAT NOT NULL, " +
             ENTRY_TIME + " TEXT NOT NULL" +
-            ")";
+            ")"
+            ;
 
     public final static String USERS_TABLE = "Users";
     public final static String USER_ID = "id";

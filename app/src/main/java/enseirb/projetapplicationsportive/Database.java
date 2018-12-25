@@ -216,20 +216,20 @@ public class Database {
     /**
      * Deletes the user from the database
      * and all their runs
-     * @param name Name of the user to delete
      * @param userId Id of the user to delete
      * @return The number of users deleted, 1 if the user was successfully
      * deleted and 0 otherwise.
      */
-    public int deleteUser(String name, long userId){
+    public int deleteUser(long userId){
         deleteRuns(userId);
-        return database.delete(SQLiteBase.USERS_TABLE, SQLiteBase.USER_NAME + " = " + name, null);
+        return database.delete(SQLiteBase.USERS_TABLE,
+                SQLiteBase.USER_ID + " = " + userId,
+                null);
     }
 
     /**
      * Deletes all the runs recorded by the runner
-     * @param runnerId Id of the runner whose runs are to be
-     *                 deleted
+     * @param runnerId Id of the runner whose runs are to be deleted
      * @return The number of runs deleted
      */
     public int deleteRuns(long runnerId){
@@ -241,6 +241,7 @@ public class Database {
 
         Cursor cursorRuns = database.query(true, SQLiteBase.RUNS_TABLE, columns, selection,
                 null, null, null, null, null);
+
         cursorRuns.moveToFirst();
 
         // For each run, delete its entries and then delete the run
