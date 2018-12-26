@@ -17,6 +17,8 @@ import android.util.Log;
 import java.util.List;
 
 public class GpsThread implements Runnable{
+    private static final long MIN_TIME_MILLI = 2000;
+    private static final float MIN_DISTANCE_M = 0;
     private Context context;
     private LocationManager locationManager;
     private SaveLocationListener locationListener;
@@ -31,7 +33,6 @@ public class GpsThread implements Runnable{
         this.locationListener = locationListener;
         this.runnerId = runnerId;
         database = new Database(context);
-        Log.i("GpsThread", "GpsThread created");
     }
 
     @Override
@@ -60,8 +61,8 @@ public class GpsThread implements Runnable{
                             == PackageManager.PERMISSION_GRANTED) {
 
                         try {
-                            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
-                            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+                            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME_MILLI, MIN_DISTANCE_M, locationListener);
+                            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME_MILLI, MIN_DISTANCE_M, locationListener);
                         } catch (IllegalArgumentException e) {
                             e.printStackTrace();
                             Log.i("GpsThread - catch", "illegal argument --> locationManager or locationListener is null");
@@ -73,9 +74,10 @@ public class GpsThread implements Runnable{
                             Log.i("GpsThread - catch", "runtime error -->  calling thread has no Looper");
                         }
 
-                        if (locationManager != null) {
+                        if (locationManager != null && locationListener != null) {
                             Location loc = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                            Log.i("GpsThread - no GPS", "calling getLastKnownLocation() = [ " + loc.getLatitude() + " | " + loc.getLongitude() + " ]");
+                            Log.i("GpsThread", "calling getLastKnownLocation()");
+                            locationListener.onLocationChanged(loc);
                         }
                     }
                 }
@@ -108,7 +110,7 @@ public class GpsThread implements Runnable{
         }
     }
 
-    public boolean isEmptyPath(){
-        return locationListener.getPath().isEmpty();
+    public int getPathSize(){
+        return locationListener.getPath().size();
     }
 }

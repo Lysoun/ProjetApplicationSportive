@@ -185,8 +185,9 @@ public class Database {
         List<Location> path = run.getPath();
 
         for (Location location : path) {
-            Log.w("GpsThread","Inserting path time: " + location.getTime() + " latitude : " + location.getLatitude()
-            + " " + location.getLongitude());
+            Log.w("GpsThread","Inserting path : TIME " + location.getTime()
+                    + " | LAT " + location.getLatitude()
+                    + " | LONG " + location.getLongitude());
             insertEntry(runId, location);
         }
 
