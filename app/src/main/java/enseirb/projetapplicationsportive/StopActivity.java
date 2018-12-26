@@ -17,6 +17,7 @@ public class StopActivity extends AppCompatActivity {
         stopService(new Intent(StopActivity.this, GpsService.class));
 
         Intent intent = new Intent(this, PrintActivity.class);
+        intent.putExtra("userId", this.getIntent().getLongExtra("userId", -1));
         startActivity(intent);
     }
 }
