@@ -1,17 +1,10 @@
 package enseirb.projetapplicationsportive;
 
 import android.content.Intent;
-import android.location.Location;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 public class PrintActivity extends AppCompatActivity {
     private Database database;

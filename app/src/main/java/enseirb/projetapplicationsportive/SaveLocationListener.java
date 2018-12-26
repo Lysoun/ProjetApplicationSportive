@@ -10,7 +10,8 @@ import java.util.List;
 import java.util.logging.Logger;
 
 public class SaveLocationListener implements LocationListener {
-    private static final Double EPSILON = 0.0000001;
+    private static final long TIMESPAN = 1000;
+    private Location lastLocation;
     private List<Location> path;
 
     public SaveLocationListener(){
@@ -42,14 +43,13 @@ public class SaveLocationListener implements LocationListener {
         if(path.isEmpty()) {
             Log.i("GpsThread", "Empty path, storing the first location");
             path.add(location);
+            lastLocation = location;
         } else {
-            Location lastLoc = path.get(path.size() - 1);
-
-            if (Math.abs(lastLoc.getLatitude() - location.getLatitude()) >= EPSILON
-                    && Math.abs(lastLoc.getLongitude() - location.getLongitude()) >= EPSILON) {
+            if (location.getTime() - lastLocation.getTime() >= TIMESPAN){
                 path.add(location);
                 Log.i("GpsThread - locListener", "New location " + location.getLatitude() + " "
                         + location.getLongitude());
+                lastLocation = location;
             } else {
                 Log.i("GpsThread", "Too close to last known location, not stored");
             }
