@@ -13,6 +13,8 @@
     <string name="del_tv_enter_name">Sélectionnez le nom de l\'utilisateur à supprimer : </string>
     <string name="del_btn_return">Retour</string>
 
+    <string name="history_btn_return">Retour</string>
+
     <string name="log_tv_login">Login : </string>
     <string name="log_et_hint_login">Entrez ici votre login</string>
     <string name="log_btn_login">Se connecter</string>
@@ -25,8 +27,9 @@
     <string name="print_btn_new_run">Nouvelle course</string>
     <string name="print_btn_logout">Déconnexion</string>
 
-    <string name="start_btn_start">Start</string>
+    <string name="start_btn_history">Historique</string>
     <string name="start_btn_logout">Déconnexion</string>
+    <string name="start_btn_start">Start</string>
 
     <string name="stop_btn_stop">Stop</string>
 </resources>
