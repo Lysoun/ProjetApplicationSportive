@@ -53,13 +53,12 @@ public class GpsService extends Service {
 
         if (thread == null) {
             gpsThread = new GpsThread(mContext, locationManager, locationListener, userId);
+        }
+        if(thread == null) {
             thread = new Thread(gpsThread);
-            thread.start();
         }
+        thread.start();
 
-        if(!thread.isAlive()) {
-            thread.start();
-        }
 
         return super.onStartCommand(intent, flags, startId);
     }
@@ -76,11 +75,12 @@ public class GpsService extends Service {
 
         thread = null;
         locationManager = null;
+        locationListener = null;
 
         super.onDestroy();
     }
 
     public static boolean lastRunIsValid(){
-        return !gpsThread.isEmptyPath();
+        return gpsThread.getPathSize() > 1;
     }
 }

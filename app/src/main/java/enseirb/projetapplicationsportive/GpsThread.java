@@ -17,6 +17,8 @@ import android.util.Log;
 import java.util.List;
 
 public class GpsThread implements Runnable{
+    private static final long MIN_TIME_MILLI = 2000;
+    private static final float MIN_DISTANCE_M = 0;
     private Context context;
     private LocationManager locationManager;
     private SaveLocationListener locationListener;
@@ -31,7 +33,6 @@ public class GpsThread implements Runnable{
         this.locationListener = locationListener;
         this.runnerId = runnerId;
         database = new Database(context);
-        database.open();
     }
 
     @Override
@@ -45,6 +46,10 @@ public class GpsThread implements Runnable{
             }
         };
 
+        /* Since we close the database inside the run() and we may call it again without the
+       GpsThread being destroyed, we need the open() method here and not in the constructor. */
+        database.open();
+
         while (!Thread.interrupted()) {
             try {
                 if (context != null) {
@@ -56,30 +61,36 @@ public class GpsThread implements Runnable{
                             == PackageManager.PERMISSION_GRANTED) {
 
                         try {
-                            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
-                            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+                            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME_MILLI, MIN_DISTANCE_M, locationListener);
+                            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME_MILLI, MIN_DISTANCE_M, locationListener);
                         } catch (IllegalArgumentException e) {
                             e.printStackTrace();
-                            Log.w("GpsThread - catch", "illegal argument --> locationManager or locationListener is null");
+                            Log.i("GpsThread - catch", "illegal argument --> locationManager or locationListener is null");
                         } catch (SecurityException e) {
                             e.printStackTrace();
-                            Log.w("GpsThread - catch", "no suitable permission");
+                            Log.i("GpsThread - catch", "no suitable permission");
                         } catch (RuntimeException e) {
                             e.printStackTrace();
-                            Log.w("GpsThread - catch", "runtime error -->  calling thread has no Looper");
+                            Log.i("GpsThread - catch", "runtime error -->  calling thread has no Looper");
+                        }
+
+                        if (locationManager != null && locationListener != null) {
+                            Location loc = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                            Log.i("GpsThread", "calling getLastKnownLocation()");
+                            locationListener.onLocationChanged(loc);
                         }
                     }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.w("GpsThread - exception", "run failed, interrupting thread");
+                Log.i("GpsThread - exception", "run failed, interrupting thread");
                 return;
             }
         }
 
         // When the thread is interrupted, the run is done so let's save it
         // in the database!
-        Log.w("GpsThread", "Thread interrupted! Let's insert the run!");
+        Log.i("GpsThread", "Thread interrupted! Let's insert the run!");
         List<Location> path = locationListener.getPath();
 
         if(path != null) {
@@ -99,7 +110,7 @@ public class GpsThread implements Runnable{
         }
     }
 
-    public boolean isEmptyPath(){
-        return locationListener.getPath().isEmpty();
+    public int getPathSize(){
+        return locationListener.getPath().size();
     }
 }

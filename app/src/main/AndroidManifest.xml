@@ -5,16 +5,20 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
+    <!-- Needed only if your app targets Android 5.0 (API level 21) or higher. -->
     <uses-feature android:name="android.hardware.location.gps" />
     <uses-feature android:name="android.hardware.location.network" />
 
     <application
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <activity android:name=".AddUserActivity" />
+        <activity android:name=".DeleteUserActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,19 +26,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".StartActivity" />
-        <activity android:name=".ConfigActivity" />
-        <activity android:name=".StopActivity" />
         <activity android:name=".PrintActivity" />
-        <activity android:name=".DeleteUserActivity" />
-        <activity android:name=".AddUserActivity" />
+        <activity android:name=".StartActivity" />
+        <activity android:name=".StopActivity" />
+        <activity android:name=".UserListViewItem"></activity>
 
         <service
             android:name=".GpsService"
             android:enabled="true"
             android:exported="true" />
-
-        <activity android:name=".UserListViewItem"></activity>
     </application>
 
 </manifest>

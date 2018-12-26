@@ -58,7 +58,7 @@ public class DeleteUserActivity extends AppCompatActivity {
         long userId = db.usersExists(login);
 
         if (userId != -1){ // The else case shouldn't be possible given the selection in the ListView
-            Toast.makeText(this, "Utilisateur à supprimer : " + login + " " + userId, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Utilisateur supprimé : " + login, Toast.LENGTH_SHORT).show();
             db.deleteUser(userId);
         }
 
