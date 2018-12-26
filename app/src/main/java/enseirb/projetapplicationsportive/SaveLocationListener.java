@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 
 public class SaveLocationListener implements LocationListener {
     private static final long TIMESPAN = 1000;
-    private static final Double EPSILON = 0.00000000000000005;
+    private static final Double EPSILON = 0.000000000000005;
     private Location lastLocation;
     private List<Location> path;
 

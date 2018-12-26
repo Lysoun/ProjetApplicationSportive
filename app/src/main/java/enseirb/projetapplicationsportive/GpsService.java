@@ -59,7 +59,6 @@ public class GpsService extends Service {
         }
         thread.start();
 
-
         return super.onStartCommand(intent, flags, startId);
     }
 
