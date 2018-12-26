@@ -16,7 +16,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity android:name=".AddUserActivity" />
         <activity android:name=".DeleteUserActivity" />
         <activity android:name=".LoginActivity">
@@ -27,9 +26,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".PrintActivity" />
+        <activity android:name=".RunListViewItem" />
         <activity android:name=".StartActivity" />
         <activity android:name=".StopActivity" />
-        <activity android:name=".UserListViewItem"></activity>
+        <activity android:name=".UserListViewItem" />
 
         <service
             android:name=".GpsService"

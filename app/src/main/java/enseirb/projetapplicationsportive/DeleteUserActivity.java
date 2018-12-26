@@ -14,11 +14,9 @@ import android.widget.Toast;
 
 public class DeleteUserActivity extends AppCompatActivity {
     private Database db;
-    ListView userListView;
-    String[] userList;
+    private ListView userListView;
+    private String[] userList;
 
-    // TODO: Fix crash on click on user name
-    // TODO: delete user
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +52,6 @@ public class DeleteUserActivity extends AppCompatActivity {
     private void deleteUser(View view) {
         String login = ((TextView) (view.findViewById(R.id.listview_tv))).getText().toString();
 
-        // TODO: Suppr user
         long userId = db.usersExists(login);
 
         if (userId != -1){ // The else case shouldn't be possible given the selection in the ListView
