@@ -67,4 +67,10 @@ public class StartActivity extends AppCompatActivity {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
+
+    public void goToHistory(View view){
+        Intent intent = new Intent(this, HistoryActivity.class);
+        intent.putExtra("userId", this.getIntent().getLongExtra("userId", -1));
+        startActivity(intent);
+    }
 }

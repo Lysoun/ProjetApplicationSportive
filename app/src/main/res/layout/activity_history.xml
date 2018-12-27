@@ -4,26 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-<<<<<<< HEAD
-    tools:context=".RunListViewItem"
+    tools:context=".HistoryActivity"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/run_listview_tv"
-        android:layout_width="fill_parent"
+    <Button
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:padding="15px"
-=======
-    tools:context=".RunListViewItem">
+        android:text="@string/history_btn_return"
+        android:onClick="goToStart"/>
 
-    <TextView
-        android:id="@+id/listview_tv"
+    <ListView
+        android:id="@+id/hist_listview"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:padding="5px"
->>>>>>> history-activity
-        android:textColor="@color/black"/>
+        android:divider="@color/user_divider"
+        android:dividerHeight="1dp" />
 
 </LinearLayout>
