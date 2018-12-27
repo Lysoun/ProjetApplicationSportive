@@ -29,9 +29,8 @@ public class HistoryActivity extends AppCompatActivity {
         database = new Database(this);
         database.open();
 
-        Log.i("GpsThread", "HistoryActivity onCreate()");
-
         runsListView = (ListView) findViewById(R.id.hist_listview);
+
         List<Run> runs = database.getRuns(userId);
 
         if(runs.size() > 0) {
@@ -41,7 +40,7 @@ public class HistoryActivity extends AppCompatActivity {
                 runsList[i] = runs.get(i).getRunListViewDisplay();
             }
 
-            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.activity_run_list_view_item, R.id.listview_tv, runsList);
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.activity_run_list_view_item, R.id.run_listview_tv, runsList);
             runsListView.setAdapter(arrayAdapter);
         } else{
             ((TextView) findViewById(R.id.hist_tv)).setVisibility(View.VISIBLE);

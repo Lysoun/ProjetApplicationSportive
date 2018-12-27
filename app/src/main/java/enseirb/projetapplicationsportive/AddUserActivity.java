@@ -48,9 +48,12 @@ public class AddUserActivity extends AppCompatActivity {
         else {
             Log.w("database returns", db.insertUser(login) + "", null);
 
+            long userId = db.usersExists(login);
+
             Toast.makeText(this, "Bienvenue " + login, Toast.LENGTH_SHORT).show();
 
             Intent intent = new Intent(this, StartActivity.class);
+            intent.putExtra("userId", userId);
             startActivity(intent);
         }
     }

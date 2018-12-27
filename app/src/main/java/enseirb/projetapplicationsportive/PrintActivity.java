@@ -75,8 +75,6 @@ public class PrintActivity extends AppCompatActivity {
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.activity_run_list_view_item, R.id.run_listview_tv, locationsList);
         runListView.setAdapter(arrayAdapter);
-
-        Log.i("GpsThread", "PrintActivity ListView done");
     }
 
     public void goToStart(View view){

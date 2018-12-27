@@ -23,14 +23,17 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void goToStart(View view){
-        String name = ((EditText) findViewById(R.id.log_name)).getText().toString();
+        String login = ((EditText) findViewById(R.id.log_name)).getText().toString();
 
-        if(!name.equals("")) {
-            long userId = database.usersExists(name);
+        if(!login.equals("")) {
+            long userId = database.usersExists(login);
 
             if (userId != -1) {
                 Intent intent = new Intent(this, StartActivity.class);
                 intent.putExtra("userId", userId);
+
+                Toast.makeText(this, "Bienvenue " + login, Toast.LENGTH_SHORT).show();
+
                 startActivity(intent);
             }
             else {
