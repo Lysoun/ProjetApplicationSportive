@@ -7,10 +7,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.List;
 
 public class HistoryActivity extends AppCompatActivity {
+    private static final String DAY = "Jour : ";
+    private static final String BEGINNING = "Début : ";
+    private static final String END = "Fin : ";
+
     private ListView runsListView;
     private Database database;
 
@@ -29,22 +34,18 @@ public class HistoryActivity extends AppCompatActivity {
         runsListView = (ListView) findViewById(R.id.hist_listview);
         List<Run> runs = database.getRuns(userId);
 
-        Log.i("GpsThread", "HistoryActivity getRuns");
+        if(runs.size() > 0) {
+            String[] runsList = new String[runs.size()];
 
-        String[] runsList = new String[runs.size()];
+            for (int i = 0; i < runs.size(); i++) {
+                runsList[i] = runs.get(i).getRunListViewDisplay();
+            }
 
-        Log.i("GpsThread", "HistoryActivity runsList");
-
-        for(int i = 0; i < runs.size(); i++){
-            runsList[i] = runs.get(i).toString();
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.activity_run_list_view_item, R.id.listview_tv, runsList);
+            runsListView.setAdapter(arrayAdapter);
+        } else{
+            ((TextView) findViewById(R.id.hist_tv)).setVisibility(View.VISIBLE);
         }
-
-        Log.i("GpsThread", "HistoryActivity toString");
-
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.activity_run_list_view_item, R.id.run_listview_tv, runsList);
-        runsListView.setAdapter(arrayAdapter);
-
-        Log.i("GpsThread", "HistoryActivity listView done");
     }
 
     public void goToStart(View view){

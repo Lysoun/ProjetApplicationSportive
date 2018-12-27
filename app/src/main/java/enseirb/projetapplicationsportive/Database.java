@@ -67,7 +67,10 @@ public class Database {
 
         Cursor cursorRuns = database.query(true, SQLiteBase.RUNS_TABLE, columnsRunsQuery , selectionRunsQuery,
                 null, null, null, orderByRunsQuery, null);
-        cursorRuns.moveToFirst();
+
+        // When no runs were found, returning an empty list
+        if(!cursorRuns.moveToFirst())
+            return new ArrayList<Run>();
 
         // For each run, retrieving its entries
         List<Run> runs = new ArrayList<>();
@@ -97,6 +100,7 @@ public class Database {
 
             Cursor cursorRunners = database.query(true, SQLiteBase.USERS_TABLE, columnsRunnersQuery, selectionRunnersQuery,
                     null, null, null, null, null);
+
 
             cursorRunners.moveToFirst();
 

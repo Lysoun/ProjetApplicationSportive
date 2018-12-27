@@ -14,6 +14,7 @@
     <string name="del_btn_return">Retour</string>
 
     <string name="history_btn_return">Retour</string>
+    <string name="history_tv_no_runs">Vous n\'avez pas encore enregistré de courses.</string>
 
     <string name="log_tv_login">Login : </string>
     <string name="log_et_hint_login">Entrez ici votre login</string>

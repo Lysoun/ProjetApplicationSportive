@@ -13,6 +13,13 @@
         android:text="@string/history_btn_return"
         android:onClick="goToStart"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:id="@+id/hist_tv"
+        android:text="@string/history_tv_no_runs"/>
+
     <ListView
         android:id="@+id/hist_listview"
         android:layout_width="fill_parent"
