@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-<<<<<<< HEAD
     tools:context=".RunListViewItem"
     android:orientation="vertical">
 
@@ -14,16 +13,5 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:padding="15px"
-=======
-    tools:context=".RunListViewItem">
-
-    <TextView
-        android:id="@+id/listview_tv"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:padding="5px"
->>>>>>> history-activity
         android:textColor="@color/black"/>
-
 </LinearLayout>
