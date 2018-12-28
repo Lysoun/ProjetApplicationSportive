@@ -94,6 +94,7 @@ public class GpsThread implements Runnable{
         List<Location> path = locationListener.getPath();
 
         if(path != null && path.size() > 0) {
+            Log.i("GpsThread", "Hey this run is alright, let's insert it.");
             database.insertRun(new Run(path, runnerId));
         }
 

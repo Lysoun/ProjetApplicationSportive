@@ -35,46 +35,26 @@ public class PrintActivity extends AppCompatActivity {
         if(!GpsService.lastRunIsValid()){
             // Displaying an error message
             ((TextView) findViewById(R.id.print_tv_end)).setText(R.string.print_tv_end_error);
-
-            // I want to test so let's create an incredible fake run
-            List<Location> path = new ArrayList<Location>();
-            Location l1 = new Location("test");
-            Location l2 = new Location("test");
-
-            l1.setLatitude(0.0);
-            l1.setLongitude(0.0);
-            l1.setTime(new Date().getTime());
-            path.add(l1);
-
-            l2.setLatitude(1.0);
-            l2.setLongitude(1.0);
-            l2.setTime(new Date().getTime());
-            path.add(l2);
-
-            run = new Run(path, userId);
-
-            database.insertRun(run);
-
             Log.i("GpsThread", "PrintActivity invalid last run --> fake run");
         }
-        else{
+        else {
             // The run the user has just done
             run = database.getLastRun(userId);
-        }
 
-        // Set ListView of runs in database
-        runListView = (ListView) findViewById(R.id.print_listview);
-        List<Location> locationsRun = run.getPath();
-        String[] locationsList = new String[locationsRun.size()];
+            // Set ListView of runs in database
+            runListView = (ListView) findViewById(R.id.print_listview);
+            List<Location> locationsRun = run.getPath();
+            String[] locationsList = new String[locationsRun.size()];
 
-        for(int i = 0; i < locationsRun.size(); i++){
-            locationsList[i] = "Latitude : " + locationsRun.get(i).getLatitude() +
+            for (int i = 0; i < locationsRun.size(); i++) {
+                locationsList[i] = "Latitude : " + locationsRun.get(i).getLatitude() +
                         "\nLongitude : " + locationsRun.get(i).getLongitude() +
                         "\nTemps : " + new Date(locationsRun.get(i).getTime()).toString();
-        }
+            }
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.activity_run_list_view_item, R.id.run_listview_tv, locationsList);
-        runListView.setAdapter(arrayAdapter);
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.activity_run_list_view_item, R.id.run_listview_tv, locationsList);
+            runListView.setAdapter(arrayAdapter);
+        }
     }
 
     public void goToStart(View view){

@@ -14,6 +14,13 @@ public class LoginActivity extends AppCompatActivity {
     private Database database;
 
     @Override
+    public void onBackPressed() {
+        //
+        if(!getIntent().getClass().equals(StartActivity.class))
+            super.onBackPressed();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);

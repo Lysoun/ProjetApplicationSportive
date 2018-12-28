@@ -41,20 +41,22 @@ public class SaveLocationListener implements LocationListener {
     }
 
     private void saveNewLocation(Location location) {
-        if(path.isEmpty()) {
-            Log.i("GpsThread", "Empty path, storing the first location");
-            path.add(location);
-            lastLocation = location;
-        } else {
-            if (Math.abs(location.getTime() - lastLocation.getTime()) >= TIMESPAN
-                    && Math.abs(location.getLatitude() - lastLocation.getLatitude()) >= EPSILON
-                    && Math.abs(location.getLongitude() - lastLocation.getLongitude()) >= EPSILON){
+        if (location != null) {
+            if (path.isEmpty()) {
+                Log.i("GpsThread", "Empty path, storing the first location");
                 path.add(location);
-                Log.i("GpsThread - locListener", "New location " + location.getLatitude() + " "
-                        + location.getLongitude());
-                lastLocation = location;
+                lastLocation = new Location(location);
             } else {
-                Log.i("GpsThread", "Too close in time or space to last known location, not stored");
+                if (Math.abs(location.getTime() - lastLocation.getTime()) >= TIMESPAN
+                        && Math.abs(location.getLatitude() - lastLocation.getLatitude()) >= EPSILON
+                        && Math.abs(location.getLongitude() - lastLocation.getLongitude()) >= EPSILON) {
+                    path.add(location);
+                    Log.i("GpsThread - locListener", "New location " + location.getLatitude() + " "
+                            + location.getLongitude());
+                    lastLocation = location;
+                } else {
+                    Log.i("GpsThread", "Too close in time or space to last known location, not stored");
+                }
             }
         }
     }
