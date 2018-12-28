@@ -21,6 +21,8 @@ public class HistoryActivity extends AppCompatActivity {
     private ListView runsListView;
     private Database database;
 
+    // TODO: Fix bug including 2 runs in history after one run
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +51,7 @@ public class HistoryActivity extends AppCompatActivity {
             runsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    accessRunLocations(view);
+                    accessRunLocations(view, position); // id and position seem to be equal
                 }
             });
         } else{
@@ -69,14 +71,13 @@ public class HistoryActivity extends AppCompatActivity {
         database.close();
     }
 
-    private void accessRunLocations(View view){
-        String run = ((TextView) (view.findViewById(R.id.run_listview_tv))).getText().toString();
-
-        Toast.makeText(this, "" + run, Toast.LENGTH_SHORT).show();
+    private void accessRunLocations(View view, int position){
+        String runTitle = ((TextView) (view.findViewById(R.id.run_listview_tv))).getText().toString();
 
         Intent intent = new Intent(this, DisplayRunActivity.class);
         intent.putExtra("userId", this.getIntent().getLongExtra("userId", -1));
-        intent.putExtra("runTitle", run);
+        intent.putExtra("runPosition", position);
+        intent.putExtra("runTitle", runTitle);
         startActivity(intent);
     }
 }

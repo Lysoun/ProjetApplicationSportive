@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.location.Location;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -21,14 +22,16 @@ public class DisplayRunActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_run);
 
-        // TODO: set TextView with run title
+        database = new Database(this);
+        database.open();
+
         ((TextView) findViewById(R.id.display_tv_run_title)).setText(this.getIntent().getStringExtra("runTitle"));
 
-        /*
-        Run run; // TODO: get run from onClickListener in HistoryActivity
+        List<Run> listRuns = database.getRuns(this.getIntent().getLongExtra("userId", -1));
+        Run run = listRuns.get(this.getIntent().getIntExtra("runPosition", -1));
 
         // Set ListView of runs in database
-        runListView = (ListView) findViewById(R.id.print_listview);
+        runListView = (ListView) findViewById(R.id.display_listview);
         List<Location> locationsRun = run.getPath();
         String[] locationsList = new String[locationsRun.size()];
 
@@ -40,7 +43,6 @@ public class DisplayRunActivity extends AppCompatActivity {
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.activity_run_list_view_item, R.id.run_listview_tv, locationsList);
         runListView.setAdapter(arrayAdapter);
-        */
     }
 
     public void goToHistory(View view){
