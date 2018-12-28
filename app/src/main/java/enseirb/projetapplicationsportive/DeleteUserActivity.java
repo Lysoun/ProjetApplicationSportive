@@ -1,6 +1,8 @@
 package enseirb.projetapplicationsportive;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,7 +18,8 @@ public class DeleteUserActivity extends AppCompatActivity {
     private Database db;
     private ListView userListView;
     private String[] userList;
-
+    private final static String CONFIRM = "Confirmation";
+    private final static String DELETED_USER = "Utilisateur supprimé ";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,10 +38,22 @@ public class DeleteUserActivity extends AppCompatActivity {
         userListView.setAdapter(arrayAdapter);
 
         // Set listener to delete user on click
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
         userListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                deleteUser(view);
+            public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
+
+                builder.setTitle(CONFIRM)
+                        .setMessage("Voulez vous vraiment supprimer l'utilisateur "
+                                + userList[(int) id] + " et toutes ses courses ?")
+                        .setNegativeButton(R.string.no, null)
+                        .setPositiveButton(R.string.yes,
+                                new DialogInterface.OnClickListener(){
+                                    public void onClick(DialogInterface arg0, int arg1) {
+                                        deleteUser(view);
+                                    }
+                                }).create().show();
             }
         });
     }
@@ -55,7 +70,7 @@ public class DeleteUserActivity extends AppCompatActivity {
         long userId = db.usersExists(login);
 
         if (userId != -1){ // The else case shouldn't be possible given the selection in the ListView
-            Toast.makeText(this, "Utilisateur supprimé : " + login, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, DELETED_USER + ": " + login, Toast.LENGTH_SHORT).show();
             db.deleteUser(userId);
         }
 

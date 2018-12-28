@@ -33,4 +33,7 @@
     <string name="start_btn_start">Start</string>
 
     <string name="stop_btn_stop">Stop</string>
+
+    <string name="no">Non</string>
+    <string name="yes">Oui</string>
 </resources>
