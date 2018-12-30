@@ -5,9 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -18,6 +20,8 @@ public class HistoryActivity extends AppCompatActivity {
 
     private ListView runsListView;
     private Database database;
+
+    // TODO: Fix bug including 2 runs in history after one run
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +46,14 @@ public class HistoryActivity extends AppCompatActivity {
 
             ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.activity_run_list_view_item, R.id.run_listview_tv, runsList);
             runsListView.setAdapter(arrayAdapter);
+
+            // Set listener to access locations of a run on click
+            runsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    accessRunLocations(view, position); // id and position seem to be equal
+                }
+            });
         } else{
             ((TextView) findViewById(R.id.hist_tv)).setVisibility(View.VISIBLE);
         }
@@ -57,5 +69,15 @@ public class HistoryActivity extends AppCompatActivity {
     protected void onDestroy(){
         super.onDestroy();
         database.close();
+    }
+
+    private void accessRunLocations(View view, int position){
+        String runTitle = ((TextView) (view.findViewById(R.id.run_listview_tv))).getText().toString();
+
+        Intent intent = new Intent(this, DisplayRunActivity.class);
+        intent.putExtra("userId", this.getIntent().getLongExtra("userId", -1));
+        intent.putExtra("runPosition", position);
+        intent.putExtra("runTitle", runTitle);
+        startActivity(intent);
     }
 }
