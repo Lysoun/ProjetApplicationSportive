@@ -28,17 +28,17 @@ public class HistoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
 
-        long userId = this.getIntent().getLongExtra("userId", -1);
+        final long userId = this.getIntent().getLongExtra("userId", -1);
 
         database = new Database(this);
         database.open();
 
         runsListView = (ListView) findViewById(R.id.hist_listview);
 
-        List<Run> runs = database.getRuns(userId);
+        final List<Run> runs = database.getRuns(userId);
 
         if(runs.size() > 0) {
-            String[] runsList = new String[runs.size()];
+            final String[] runsList = new String[runs.size()];
 
             for (int i = 0; i < runs.size(); i++) {
                 runsList[i] = runs.get(i).getRunListViewDisplay();
@@ -51,7 +51,7 @@ public class HistoryActivity extends AppCompatActivity {
             runsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    accessRunLocations(view, position); // id and position seem to be equal
+                    accessRunLocations(runs.get((int) id), runsList[(int) id], userId); // id and position seem to be equal
                 }
             });
         } else{
@@ -71,12 +71,10 @@ public class HistoryActivity extends AppCompatActivity {
         database.close();
     }
 
-    private void accessRunLocations(View view, int position){
-        String runTitle = ((TextView) (view.findViewById(R.id.run_listview_tv))).getText().toString();
-
+    private void accessRunLocations(Run run, String runTitle, long userId){
         Intent intent = new Intent(this, DisplayRunActivity.class);
-        intent.putExtra("userId", this.getIntent().getLongExtra("userId", -1));
-        intent.putExtra("runPosition", position);
+        intent.putExtra("userId", userId);
+        intent.putExtra("runId", run.getId());
         intent.putExtra("runTitle", runTitle);
         startActivity(intent);
     }

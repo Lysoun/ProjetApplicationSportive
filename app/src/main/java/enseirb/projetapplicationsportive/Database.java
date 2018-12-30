@@ -53,8 +53,9 @@ public class Database {
      * @return All the runs the runner has recorded with the application
      */
     public List<Run> getRuns(long runnerId){
-        String[] columnsRunsQuery = {SQLiteBase.RUN_ID};
-        String[] columnsEntriesQuery = {SQLiteBase.ENTRY_TIME, SQLiteBase.ENTRY_LATITUDE, SQLiteBase.ENTRY_LONGITUDE};
+        String[] columnsRunsQuery = {SQLiteBase.RUN_ID, SQLiteBase.RUN_RUNNER_ID};
+        String[] columnsEntriesQuery = {SQLiteBase.ENTRY_TIME, SQLiteBase.ENTRY_LATITUDE,
+                SQLiteBase.ENTRY_LONGITUDE};
         String[] columnsRunnersQuery = {SQLiteBase.USER_NAME};
 
         String selectionRunsQuery = SQLiteBase.RUN_RUNNER_ID + " = " + runnerId;
@@ -105,13 +106,70 @@ public class Database {
             cursorRunners.moveToFirst();
 
             String runnerName = cursorRunners.getString(0);
+            long id = cursorRuns.getLong(0);
 
-            runs.add(new Run(entries, runnerName, runnerId));
+            runs.add(new Run(entries, runnerName, runnerId, id));
 
             cursorRuns.moveToNext();
         }
 
         return runs;
+    }
+
+    public Run getRun(long id) {
+        String[] columnsRunsQuery = {SQLiteBase.RUN_ID, SQLiteBase.RUN_RUNNER_ID};
+        String[] columnsEntriesQuery = {SQLiteBase.ENTRY_TIME, SQLiteBase.ENTRY_LATITUDE,
+                SQLiteBase.ENTRY_LONGITUDE};
+        String[] columnsRunnersQuery = {SQLiteBase.USER_NAME};
+
+        String selectionRunsQuery = SQLiteBase.RUN_ID + " = " + id;
+
+        String orderByRunsQuery = SQLiteBase.RUN_ID + " DESC";
+        String orderByEntriesQuery = SQLiteBase.ENTRY_TIME + " DESC";
+
+        // First retrieving the run
+
+        Log.i("GpsThread", "Retrieving the run");
+        Cursor cursorRuns = database.query(true, SQLiteBase.RUNS_TABLE, columnsRunsQuery, selectionRunsQuery,
+                null, null, null, orderByRunsQuery, null);
+
+        // When no runs were found, returning a null pointer, an error must have occurred
+        if (!cursorRuns.moveToFirst()) {
+            return null;
+        }
+
+        // Retrieving this run's entries
+        long runnerId = cursorRuns.getLong(1);
+        List<Location> entries = new ArrayList<>();
+
+        String selectionEntriesQuery = SQLiteBase.ENTRY_RUN_ID + " = " + cursorRuns.getString(0);
+        Cursor cursorEntries = database.query(true, SQLiteBase.ENTRIES_TABLE, columnsEntriesQuery, selectionEntriesQuery,
+                null, null, null, orderByEntriesQuery, null);
+        cursorEntries.moveToFirst();
+
+        while (!cursorEntries.isAfterLast()) {
+            long time = cursorEntries.getLong(0);
+            double latitude = cursorEntries.getDouble(1);
+            double longitude = cursorEntries.getDouble(2);
+
+            Location location = new Location(DATABASE_PROVIDER);
+            location.setTime(time);
+            location.setLatitude(latitude);
+            location.setLongitude(longitude);
+
+            entries.add(location);
+            cursorEntries.moveToNext();
+        }
+
+        String selectionRunnersQuery = SQLiteBase.USER_ID + " = " + runnerId;
+
+        Cursor cursorRunners = database.query(true, SQLiteBase.USERS_TABLE, columnsRunnersQuery, selectionRunnersQuery,
+                null, null, null, null, null);
+        cursorRunners.moveToFirst();
+
+        String runnerName = cursorRunners.getString(0);
+
+        return new Run(entries, runnerName, runnerId, id);
     }
 
     /**

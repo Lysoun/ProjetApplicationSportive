@@ -12,23 +12,25 @@ import java.util.Locale;
 import java.util.Map;
 
 public class Run {
+    private long id;
     private List<Location> path ;
     private String runner;
     private long runnerId;
     private Calendar calendar;
 
     public Run(List<Location> path, String runner){
-        this(path, runner, -1);
+        this(path, runner, -1, -1);
     }
 
     public Run(List<Location> path, long runnerId){
-        this(path, "", runnerId);
+        this(path, "", runnerId, -1);
     }
 
-    public Run(List<Location> path, String runner, long runnerId){
+    public Run(List<Location> path, String runner, long runnerId, long id){
         this.path = new ArrayList<Location>(path);
         this.runner = new String(runner);
         this.runnerId = runnerId;
+        this.id = id;
         calendar = Calendar.getInstance(Locale.FRANCE);
     }
 
@@ -42,6 +44,8 @@ public class Run {
     }
 
     public long getRunnerId(){ return runnerId; }
+
+    public long getId(){return id;}
 
     public String getRunListViewDisplay(){
         if(path.size() <= 0)

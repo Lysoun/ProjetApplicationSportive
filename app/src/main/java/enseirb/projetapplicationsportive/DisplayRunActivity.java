@@ -27,8 +27,10 @@ public class DisplayRunActivity extends AppCompatActivity {
 
         ((TextView) findViewById(R.id.display_tv_run_title)).setText(this.getIntent().getStringExtra("runTitle"));
 
-        List<Run> listRuns = database.getRuns(this.getIntent().getLongExtra("userId", -1));
-        Run run = listRuns.get(this.getIntent().getIntExtra("runPosition", -1));
+        Log.i("GpsThread", "Getting the run");
+        Log.i("GpsThread", "runId: " + this.getIntent().getLongExtra("runId", -1));
+         Run run = database.getRun(this.getIntent().getLongExtra("runId", -1));
+         Log.i("GpsThread", "Alright it's done");
 
         // Set ListView of runs in database
         runListView = (ListView) findViewById(R.id.display_listview);
