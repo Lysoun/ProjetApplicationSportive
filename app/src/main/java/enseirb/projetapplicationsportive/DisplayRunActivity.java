@@ -26,25 +26,12 @@ public class DisplayRunActivity extends AppCompatActivity {
         database.open();
 
         ((TextView) findViewById(R.id.display_tv_run_title)).setText(this.getIntent().getStringExtra("runTitle"));
+    }
 
-        Log.i("GpsThread", "Getting the run");
-        Log.i("GpsThread", "runId: " + this.getIntent().getLongExtra("runId", -1));
-         Run run = database.getRun(this.getIntent().getLongExtra("runId", -1));
-         Log.i("GpsThread", "Alright it's done");
-
-        // Set ListView of runs in database
-        runListView = (ListView) findViewById(R.id.display_listview);
-        List<Location> locationsRun = run.getPath();
-        String[] locationsList = new String[locationsRun.size()];
-
-        for(int i = 0; i < locationsRun.size(); i++){
-            locationsList[i] = "Latitude : " + locationsRun.get(i).getLatitude() +
-                    "\nLongitude : " + locationsRun.get(i).getLongitude() +
-                    "\nTemps : " + new Date(locationsRun.get(i).getTime()).toString();
-        }
-
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.activity_run_list_view_item, R.id.run_listview_tv, locationsList);
-        runListView.setAdapter(arrayAdapter);
+    public void goToDisplayMap(View view){
+        Intent intent = new Intent(this, DisplayMapActivity.class);
+        intent.putExtra("runId", this.getIntent().getLongExtra("runId", -1));
+        startActivity(intent);
     }
 
     public void goToHistory(View view){
