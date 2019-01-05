@@ -29,13 +29,12 @@ public class PrintActivity extends AppCompatActivity {
 
         Run run;
 
-        if(!GpsService.lastRunIsValid()){
+        if (!GpsService.lastRunIsValid()) {
             // Displaying an error message
             ((TextView) findViewById(R.id.print_tv_end)).setText(R.string.print_tv_end_error);
-  //          findViewById(R.id.print_btn_display_run).setVisibility(View.GONE);
+            //          findViewById(R.id.print_btn_display_run).setVisibility(View.GONE);
             Log.i("GpsThread", "PrintActivity invalid last run --> fake run");
-        }
-        else {
+        } else {
             // The run the user has just done
             run = database.getLastRun(userId);
 
@@ -51,6 +50,8 @@ public class PrintActivity extends AppCompatActivity {
                         "\nLongitude : " + locationsRun.get(i).getLongitude() +
                         "\nTemps : " + new Date(locationsRun.get(i).getTime()).toString();
             }
+        }
+    }
 
     public void goToDisplayMapActivity(View view){
         Intent intent = new Intent(this, DisplayMapActivity.class);
