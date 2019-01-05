@@ -2,14 +2,11 @@ package enseirb.projetapplicationsportive;
 
 import android.location.Location;
 
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 public class Run {
     private long id;
@@ -17,6 +14,9 @@ public class Run {
     private String runner;
     private long runnerId;
     private Calendar calendar;
+    private float meanSpeed;
+    private float maxSpeed;
+    private double totalDistance;
 
     public Run(List<Location> path, String runner){
         this(path, runner, -1, -1);
@@ -32,6 +32,24 @@ public class Run {
         this.runnerId = runnerId;
         this.id = id;
         calendar = Calendar.getInstance(Locale.FRANCE);
+
+        meanSpeed = (float) 0.0;
+        maxSpeed = (float) 0.0;
+        totalDistance = 0.0;
+
+        for(int i = 1; i < path.size(); i++){
+            float distance = (path.get(i-1).distanceTo(path.get(i)));
+            totalDistance += distance;
+            float time = path.get(i - 1).getTime() - path.get(i).getTime();
+            float speed = 3600 * distance / time;
+
+            if(speed > maxSpeed)
+                maxSpeed = speed;
+
+            meanSpeed += speed;
+        }
+
+        meanSpeed /= (path.size() - 1);
     }
 
 
@@ -46,6 +64,27 @@ public class Run {
     public long getRunnerId(){ return runnerId; }
 
     public long getId(){return id;}
+
+    public String getStats() {
+        String deltaTime = "";
+        int t = (int) ((path.get(0).getTime() - path.get(path.size()-1).getTime()) / 60000) + 1;
+        if(t >= 60)
+            deltaTime += t / 60 + " h " + t % 60 + " min";
+        else
+            deltaTime += t + " min";
+
+        String dist = "";
+        float d = (int) totalDistance;
+        if (d >= 1000)
+            dist += d / 1000 + " km";
+        else
+            dist += (int) d + " m";
+
+        return "Temps de course : " + deltaTime
+                + "\nDistance totale parcourue : " + dist
+                + "\nVitesse moyenne : " + meanSpeed + " km/h"
+                + "\nVitesse maximale : " + maxSpeed + " km/h";
+    }
 
     public String getRunListViewDisplay(){
         if(path.size() <= 0)

@@ -35,7 +35,22 @@ public class PrintActivity extends AppCompatActivity {
   //          findViewById(R.id.print_btn_display_run).setVisibility(View.GONE);
             Log.i("GpsThread", "PrintActivity invalid last run --> fake run");
         }
-    }
+        else {
+            // The run the user has just done
+            run = database.getLastRun(userId);
+
+            ((TextView) findViewById(R.id.display_tv_stats)).setText(run.getStats());
+
+            // Set ListView of runs in database
+            runListView = (ListView) findViewById(R.id.print_listview);
+            List<Location> locationsRun = run.getPath();
+            String[] locationsList = new String[locationsRun.size()];
+
+            for (int i = 0; i < locationsRun.size(); i++) {
+                locationsList[i] = "Latitude : " + locationsRun.get(i).getLatitude() +
+                        "\nLongitude : " + locationsRun.get(i).getLongitude() +
+                        "\nTemps : " + new Date(locationsRun.get(i).getTime()).toString();
+            }
 
     public void goToDisplayMapActivity(View view){
         Intent intent = new Intent(this, DisplayMapActivity.class);
