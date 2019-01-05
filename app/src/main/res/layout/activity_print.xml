@@ -14,6 +14,11 @@
         android:text="@string/print_tv_end"
         android:id="@+id/print_tv_end"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/display_tv_stats"/>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -32,17 +37,5 @@
         android:layout_height="wrap_content"
         android:text="@string/print_btn_logout"
         android:onClick="goToLogin"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/display_tv_stats"/>
-
-    <ListView
-        android:id="@+id/print_listview"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:divider="@color/user_divider"
-        android:dividerHeight="1dp" />
 
 </LinearLayout>

@@ -28,7 +28,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".PrintActivity" />
-        <activity android:name=".RunListViewItem" />
         <activity android:name=".StartActivity" />
         <activity android:name=".StopActivity" />
         <activity android:name=".UserListViewItem" />

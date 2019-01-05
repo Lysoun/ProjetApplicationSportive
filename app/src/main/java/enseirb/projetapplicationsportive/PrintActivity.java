@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -32,24 +31,12 @@ public class PrintActivity extends AppCompatActivity {
         if (!GpsService.lastRunIsValid()) {
             // Displaying an error message
             ((TextView) findViewById(R.id.print_tv_end)).setText(R.string.print_tv_end_error);
-            //          findViewById(R.id.print_btn_display_run).setVisibility(View.GONE);
-            Log.i("GpsThread", "PrintActivity invalid last run --> fake run");
+            findViewById(R.id.print_btn_display_run).setVisibility(View.GONE);
         } else {
             // The run the user has just done
             run = database.getLastRun(userId);
 
             ((TextView) findViewById(R.id.display_tv_stats)).setText(run.getStats());
-
-            // Set ListView of runs in database
-            runListView = (ListView) findViewById(R.id.print_listview);
-            List<Location> locationsRun = run.getPath();
-            String[] locationsList = new String[locationsRun.size()];
-
-            for (int i = 0; i < locationsRun.size(); i++) {
-                locationsList[i] = "Latitude : " + locationsRun.get(i).getLatitude() +
-                        "\nLongitude : " + locationsRun.get(i).getLongitude() +
-                        "\nTemps : " + new Date(locationsRun.get(i).getTime()).toString();
-            }
         }
     }
 

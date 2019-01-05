@@ -62,7 +62,8 @@ public class DisplayMapActivity extends FragmentActivity implements OnMapReadyCa
         LatLngBounds latLngBounds = null;
 
         // Adding a marker for each position
-        for(Location location : path){
+        for(int i = 0; i < path.size(); i++){
+            Location location = path.get(i);
             latlgn = new LatLng(location.getLatitude(), location.getLongitude());
 
             if(latLngBounds == null)
@@ -70,7 +71,7 @@ public class DisplayMapActivity extends FragmentActivity implements OnMapReadyCa
             else
                 latLngBounds = latLngBounds.including(latlgn);
 
-            mMap.addMarker(new MarkerOptions().position(latlgn));
+            mMap.addMarker(new MarkerOptions().position(latlgn).title("Position " + (path.size() - i)));
         }
 
         // Moving the camera so that we can see all the run
