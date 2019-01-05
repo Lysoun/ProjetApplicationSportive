@@ -41,6 +41,8 @@ public class PrintActivity extends AppCompatActivity {
             // The run the user has just done
             run = database.getLastRun(userId);
 
+            ((TextView) findViewById(R.id.display_tv_stats)).setText(run.getStats());
+
             // Set ListView of runs in database
             runListView = (ListView) findViewById(R.id.print_listview);
             List<Location> locationsRun = run.getPath();

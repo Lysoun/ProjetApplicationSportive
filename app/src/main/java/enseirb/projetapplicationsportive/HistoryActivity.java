@@ -51,7 +51,7 @@ public class HistoryActivity extends AppCompatActivity {
             runsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    accessRunLocations(runs.get((int) id), runsList[(int) id], userId); // id and position seem to be equal
+                    accessRunLocations(runs.get((int) id), runsList[(int) id] + "\n" + runs.get((int) id).getStats(), userId); // id and position seem to be equal
                 }
             });
         } else{
